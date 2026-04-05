@@ -1,0 +1,52 @@
+[
+  {
+    "id": "d0e4038b-dff4-4417-8272-42a7d5fa532c",
+    "pinId": "demo_1775402570561",
+    "pinUrl": "https://pinterest.com/pin/demo_1775402570561",
+    "productTitle": "COSRX Snail Mucin 96% Power Repairing Essence 3.38 fl.oz",
+    "productAsin": "B09V3KXJPB",
+    "category": "beauty",
+    "createdAt": "2026-04-05T15:22:50.561Z",
+    "platform": "pinterest"
+  },
+  {
+    "id": "8e035551-ece7-4056-bded-74a0d948726f",
+    "pinId": "demo_1775402568557",
+    "pinUrl": "https://pinterest.com/pin/demo_1775402568557",
+    "productTitle": "CeraVe Moisturizing Cream | 19 Oz | Daily Face and Body Moisturizer",
+    "productAsin": "B00FLYWNYQ",
+    "category": "beauty",
+    "createdAt": "2026-04-05T15:22:48.557Z",
+    "platform": "pinterest"
+  },
+  {
+    "id": "bde49ccc-2bc4-469e-b3b5-1663cda71b01",
+    "pinId": "demo_1775402566551",
+    "pinUrl": "https://pinterest.com/pin/demo_1775402566551",
+    "productTitle": "Resistance Bands Set - 11 Piece Exercise Bands for Working Out",
+    "productAsin": "B07ZPKN6YR",
+    "category": "beauty",
+    "createdAt": "2026-04-05T15:22:46.551Z",
+    "platform": "pinterest"
+  },
+  {
+    "id": "b05056fc-2f84-4ab6-9ab9-617f5ef7012c",
+    "pinId": "demo_1775402564550",
+    "pinUrl": "https://pinterest.com/pin/demo_1775402564550",
+    "productTitle": "Instant Pot Duo 7-in-1 Electric Pressure Cooker, 6 Quart",
+    "productAsin": "B0CHWRXH8B",
+    "category": "beauty",
+    "createdAt": "2026-04-05T15:22:44.550Z",
+    "platform": "pinterest"
+  },
+  {
+    "id": "5e27ad8c-87e5-4d96-bbb4-b52f9f3da953",
+    "pinId": "demo_1775402562534",
+    "pinUrl": "https://pinterest.com/pin/demo_1775402562534",
+    "productTitle": "Apple AirPods Pro (2nd Generation) - Active Noise Cancellation",
+    "productAsin": "B09B8YWXDF",
+    "category": "beauty",
+    "createdAt": "2026-04-05T15:22:42.534Z",
+    "platform": "pinterest"
+  }
+]
