@@ -128,48 +128,37 @@ export default function AirFryerPost() {
         <hr className="my-10 border-stone-200" />
 
         <h2 className="font-display text-2xl font-bold text-stone-900">
-          Önerilen Modeller (Amazon.com.tr)
+          Önerilen Modeller
         </h2>
         <div className="bg-pink-50 border border-pink-200 rounded-2xl p-6 not-prose space-y-3 text-sm">
           <div>
             <strong className="text-stone-900">Bütçe dostu (3.000 TL altı):</strong>
             <br />
-            <a
-              href="https://www.amazon.com.tr/s?k=Tefal+Easy+Fry+XXL"
-              className="text-pink-700 underline"
-              target="_blank"
-              rel="noopener sponsored"
-            >
-              Tefal Easy Fry XXL 6.5L
-            </a>{" "}
+            <span className="text-stone-800 font-medium">Tefal Easy Fry XXL 6.5L</span>{" "}
             — aile boyu, dijital ekran, 9 program
           </div>
           <div>
             <strong className="text-stone-900">Premium (5.000 TL üstü):</strong>
             <br />
-            <a
-              href="https://www.amazon.com.tr/s?k=Cuisinart+Air+Fryer"
-              className="text-pink-700 underline"
-              target="_blank"
-              rel="noopener sponsored"
-            >
-              Cuisinart Air Fryer + Tost Fırını 8-in-1
-            </a>{" "}
+            <span className="text-stone-800 font-medium">Cuisinart Air Fryer + Tost Fırını 8-in-1</span>{" "}
             — air fryer + tost makinesi + mini fırın
           </div>
           <div>
             <strong className="text-stone-900">Türk marka (yerli garanti):</strong>
             <br />
-            <a
-              href="https://www.amazon.com.tr/s?k=Karaca+Air+Fryer"
-              className="text-pink-700 underline"
-              target="_blank"
-              rel="noopener sponsored"
-            >
-              Karaca Air Fryer modelleri
-            </a>{" "}
+            <span className="text-stone-800 font-medium">Karaca Air Fryer modelleri</span>{" "}
             — Türkiye&apos;de servis garantili
           </div>
+        </div>
+
+        {/* Tek CTA — Cosmositio ana sayfasındaki Mutfak kategorisine */}
+        <div className="mt-6 not-prose">
+          <Link
+            href="/#mutfak"
+            className="inline-flex items-center gap-2 bg-stone-900 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-md text-sm"
+          >
+            Cosmositio&apos;da Mutfak kategorisini keşfet →
+          </Link>
         </div>
 
         <p className="text-sm text-stone-500 mt-8">

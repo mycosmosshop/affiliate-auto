@@ -60,15 +60,8 @@ export default function AntiAgingPost() {
           gece bile yetiyor. 454gr kutu uzun süre dayanır.
         </p>
         <p>
-          Türkiye&apos;de Amazon.com.tr&apos;de bulabilirsin:{" "}
-          <a
-            href="https://www.amazon.com.tr/s?k=CeraVe+Nemlendirici+Krem"
-            target="_blank"
-            rel="noopener sponsored"
-            className="text-pink-700 underline"
-          >
-            CeraVe Moisturizing Cream
-          </a>
+          Türkiye&apos;de eczanelerde ve online beauty mağazalarında{" "}
+          <strong>CeraVe Moisturizing Cream</strong> ismiyle satılıyor.
         </p>
 
         <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
@@ -81,14 +74,8 @@ export default function AntiAgingPost() {
           3 ayda ince çizgiler belirgin azalır.
         </p>
         <p>
-          <a
-            href="https://www.amazon.com.tr/s?k=Olay+Regenerist+Retinol+24"
-            target="_blank"
-            rel="noopener sponsored"
-            className="text-pink-700 underline"
-          >
-            Olay Regenerist Retinol 24 Night Serum
-          </a>
+          <strong>Olay Regenerist Retinol 24 Night Serum</strong> — eczanelerde
+          ve büyük drogerilerde bulabilirsin.
         </p>
 
         <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
@@ -104,14 +91,8 @@ export default function AntiAgingPost() {
           uygulanabilir.
         </p>
         <p>
-          <a
-            href="https://www.amazon.com.tr/s?k=The+Ordinary+Niacinamide"
-            target="_blank"
-            rel="noopener sponsored"
-            className="text-pink-700 underline"
-          >
-            The Ordinary Niacinamide %10 + Zinc %1
-          </a>
+          <strong>The Ordinary Niacinamide %10 + Zinc %1</strong> — Türkiye&apos;deki
+          beauty zincirlerinde yaygın olarak bulunuyor.
         </p>
 
         <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
@@ -123,14 +104,8 @@ export default function AntiAgingPost() {
           Sabah retinol&apos;den sonra bile rahat kullanılır.
         </p>
         <p>
-          <a
-            href="https://www.amazon.com.tr/s?k=La+Roche-Posay+Toleriane"
-            target="_blank"
-            rel="noopener sponsored"
-            className="text-pink-700 underline"
-          >
-            La Roche-Posay Toleriane Sensitive
-          </a>
+          <strong>La Roche-Posay Toleriane Sensitive</strong> — eczanelerde
+          standart bulunan, dermatolog onaylı bir formül.
         </p>
 
         <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
@@ -176,11 +151,20 @@ export default function AntiAgingPost() {
           tamamlar.
         </p>
 
+        {/* CTA — Cosmositio Güzellik kategorisine */}
+        <div className="mt-8 not-prose">
+          <Link
+            href="/#guzellik"
+            className="inline-flex items-center gap-2 bg-stone-900 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-xl transition shadow-md text-sm"
+          >
+            Cosmositio&apos;da Güzellik kategorisini keşfet →
+          </Link>
+        </div>
+
         <p className="text-sm text-stone-500 mt-8">
           <strong>Tıbbi uyarı:</strong> Bu yazı bilgilendirme amaçlıdır,
           dermatolog tavsiyesi yerine geçmez. Cilt sorunlarınız için bir
-          uzmana başvurun. Amazon.com.tr Partnernet ortaklık programı
-          üyesiyiz.
+          uzmana başvurun.
         </p>
       </div>
     </article>

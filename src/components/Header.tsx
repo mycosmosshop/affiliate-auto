@@ -45,7 +45,7 @@ export default function Header() {
             </Link>
             <Link
               href="/iletisim"
-              className="ml-1 px-4 py-2 rounded-full bg-stone-900 text-white hover:bg-pink-700 transition shadow-sm"
+              className="ml-1 px-4 py-2 rounded-full text-pink-700 hover:bg-pink-50 transition"
             >
               İletişim
             </Link>
