@@ -111,9 +111,7 @@ export default function RelatedCarousel({
             <h3 className="text-sm font-semibold text-stone-900 line-clamp-2 leading-snug mb-2">
               {r.title}
             </h3>
-            {locale === "tr" && (
-              <p className="text-stone-900 font-bold">{r.price}</p>
-            )}
+            <p className="text-stone-900 font-bold">{r.price}</p>
             <p className="text-xs text-pink-700 mt-2 group-hover:underline">
               {reviewLabel}
             </p>

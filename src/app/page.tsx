@@ -17,9 +17,11 @@ interface TrProduct {
   rating?: string;
 }
 
-function loadProducts(): TrProduct[] {
+function loadProducts(locale: "tr" | "de"): TrProduct[] {
   try {
-    const p = path.join(process.cwd(), "data", "products-tr.json");
+    const file =
+      locale === "de" ? "products-de.json" : "products-tr.json";
+    const p = path.join(process.cwd(), "data", file);
     if (!fs.existsSync(p)) return [];
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch {
@@ -88,7 +90,7 @@ function slugify(s: string): string {
 export default async function Home() {
   const locale = await getLocale();
   const m = t(locale);
-  const products = loadProducts();
+  const products = loadProducts(locale);
   const grouped = products.reduce<Record<string, TrProduct[]>>((acc, p) => {
     (acc[p.category] = acc[p.category] || []).push(p);
     return acc;

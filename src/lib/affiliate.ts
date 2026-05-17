@@ -24,13 +24,18 @@ export function buildTrUrl(rawUrl: string): string {
   return appendTag(rawUrl, AMAZON_TR_TAG);
 }
 
-// DE site: amazon.de arama URL'ine çevir + tag
+// DE site: amazon.de direkt /dp/ASIN URL'i + tag
 export function buildDeUrl(rawUrl: string, productTitle: string): string {
-  // Eğer raw URL zaten amazon.de ise ve tag yoksa ekle
+  // Zaten amazon.de URL'iyse tag ekle
   if (/amazon\.de\//.test(rawUrl)) {
     return appendTag(rawUrl, AMAZON_DE_TAG);
   }
-  // Aksi takdirde: amazon.de arama URL'i ürün başlığıyla
+  // ASIN'i raw URL'den çıkarmaya çalış
+  const asinMatch = rawUrl.match(/\/dp\/([A-Z0-9]{10})/);
+  if (asinMatch) {
+    return `https://www.amazon.de/dp/${asinMatch[1]}?tag=${AMAZON_DE_TAG}`;
+  }
+  // Fallback: arama (eğer ASIN bulunamadıysa)
   const q = encodeURIComponent(productTitle.substring(0, 120));
   return `https://www.amazon.de/s?k=${q}&tag=${AMAZON_DE_TAG}`;
 }
@@ -52,11 +57,6 @@ export function shortenAmazonUrl(url: string): string {
     if (m) return `amazon.com.tr/dp/${m[1]}`;
     const md = url.match(/amazon\.de\/dp\/([A-Z0-9]{10})/);
     if (md) return `amazon.de/dp/${md[1]}`;
-    const ms = url.match(/amazon\.de\/s\?k=([^&]+)/);
-    if (ms) {
-      const q = decodeURIComponent(ms[1]).substring(0, 35);
-      return `amazon.de/search/${q}…`;
-    }
     return url.replace(/^https?:\/\//, "").substring(0, 50);
   } catch {
     return url;

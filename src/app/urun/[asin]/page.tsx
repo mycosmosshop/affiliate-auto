@@ -23,9 +23,11 @@ interface TrProduct {
   rating?: string;
 }
 
-function loadProducts(): TrProduct[] {
+function loadProducts(locale: "tr" | "de" = "tr"): TrProduct[] {
   try {
-    const p = path.join(process.cwd(), "data", "products-tr.json");
+    const file =
+      locale === "de" ? "products-de.json" : "products-tr.json";
+    const p = path.join(process.cwd(), "data", file);
     if (!fs.existsSync(p)) return [];
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch {
@@ -33,8 +35,15 @@ function loadProducts(): TrProduct[] {
   }
 }
 
+function loadAllProducts(): TrProduct[] {
+  // Her iki kategori dosyasından ASIN'leri birleştir (urun/[asin] için)
+  const tr = loadProducts("tr");
+  const de = loadProducts("de");
+  return [...tr, ...de];
+}
+
 export async function generateStaticParams() {
-  const products = loadProducts();
+  const products = loadAllProducts();
   return products.map((p) => ({ asin: p.asin }));
 }
 
@@ -44,7 +53,7 @@ export async function generateMetadata({
   params: Promise<{ asin: string }>;
 }): Promise<Metadata> {
   const { asin } = await params;
-  const products = loadProducts();
+  const products = loadAllProducts();
   const product = products.find((p) => p.asin === asin);
   if (!product) return { title: "Ürün Bulunamadı | Cosmositio" };
   return {
@@ -59,16 +68,20 @@ export default async function UrunReview({
   params: Promise<{ asin: string }>;
 }) {
   const { asin } = await params;
-  const products = loadProducts();
-  const product = products.find((p) => p.asin === asin);
+  const locale = await getLocale();
+  // Önce locale'in kendi dosyasında ara, yoksa diğerine bak
+  const localeProducts = loadProducts(locale);
+  const otherProducts = loadProducts(locale === "tr" ? "de" : "tr");
+  let product = localeProducts.find((p) => p.asin === asin);
+  if (!product) product = otherProducts.find((p) => p.asin === asin);
   if (!product) notFound();
+  const products = localeProducts;
 
   // Aynı kategoriden ilgili ürünler (carousel için daha fazla)
   const related = products
     .filter((p) => p.category === product.category && p.asin !== asin)
     .slice(0, 12);
 
-  const locale = await getLocale();
   const m = t(locale);
 
   // Pros & cons (kategori-bazlı template) — locale aware
@@ -232,7 +245,7 @@ export default async function UrunReview({
               {m.detail_current_price}
             </p>
             <p className="font-display text-4xl font-bold text-stone-900 mt-1">
-              {locale === "de" ? "—" : product.price}
+              {product.price}
             </p>
             <a
               href={affUrl}
