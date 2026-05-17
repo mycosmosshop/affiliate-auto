@@ -1,12 +1,137 @@
 import type { Metadata } from "next";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "İletişim | Cosmositio",
-  description:
-    "Cosmositio ile iletişime geçin — soru, öneri, marka işbirliği veya geri bildirim için.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  if (locale === "de") {
+    return {
+      title: "Kontakt | Cosmositio",
+      description:
+        "Kontaktiere Cosmositio — Fragen, Vorschläge, Markenkooperationen oder Feedback.",
+    };
+  }
+  return {
+    title: "İletişim | Cosmositio",
+    description:
+      "Cosmositio ile iletişime geçin — soru, öneri, marka işbirliği veya geri bildirim için.",
+  };
+}
 
-export default function IletisimPage() {
+export default async function IletisimPage() {
+  const locale = await getLocale();
+
+  if (locale === "de") {
+    return (
+      <article className="max-w-2xl mx-auto px-6 py-16">
+        <header className="mb-10 text-center">
+          <p className="text-pink-600 text-xs uppercase tracking-widest mb-3">
+            Kontakt
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight">
+            Schreib uns{" "}
+            <span className="italic text-pink-700">eine Nachricht</span>
+          </h1>
+          <p className="text-stone-600 mt-4 leading-relaxed">
+            Wir freuen uns auf Fragen, Vorschläge und Kooperationen.
+          </p>
+        </header>
+
+        <div className="bg-white border border-stone-200 rounded-2xl p-8 space-y-6">
+          <div className="flex items-start gap-4">
+            <div className="text-2xl">📧</div>
+            <div>
+              <h3 className="font-semibold text-stone-900 mb-1">E-Mail</h3>
+              <a
+                href="mailto:volkanpekatik@gmail.com"
+                className="text-pink-700 underline text-lg"
+              >
+                volkanpekatik@gmail.com
+              </a>
+              <p className="text-sm text-stone-500 mt-1">
+                Schnellste Antwort (innerhalb 24-48 Stunden)
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="text-2xl">📞</div>
+            <div>
+              <h3 className="font-semibold text-stone-900 mb-1">Telefon</h3>
+              <a
+                href="tel:+905427939382"
+                className="text-pink-700 underline text-lg"
+              >
+                +90 542 793 9382
+              </a>
+              <p className="text-sm text-stone-500 mt-1">
+                WhatsApp oder SMS empfohlen
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="text-2xl">📍</div>
+            <div>
+              <h3 className="font-semibold text-stone-900 mb-1">Adresse</h3>
+              <p className="text-stone-700">
+                İstasyon Mah. Cengiz Topel Cad.
+                <br />
+                No:111/2 C Blok
+                <br />
+                59500 Çerkezköy / Tekirdağ
+                <br />
+                Türkei
+              </p>
+            </div>
+          </div>
+
+          <hr className="border-stone-200" />
+
+          <div>
+            <h3 className="font-semibold text-stone-900 mb-3">
+              Wofür kannst du uns kontaktieren?
+            </h3>
+            <ul className="space-y-2 text-stone-700">
+              <li className="flex gap-2">
+                <span>💄</span>
+                <span>Produktempfehlungs-Anfragen</span>
+              </li>
+              <li className="flex gap-2">
+                <span>🤝</span>
+                <span>Markenkooperationen und Sponsored Content</span>
+              </li>
+              <li className="flex gap-2">
+                <span>✏️</span>
+                <span>Korrekturen oder Fehler melden</span>
+              </li>
+              <li className="flex gap-2">
+                <span>💌</span>
+                <span>Einfach Hallo sagen 😊</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-pink-50 border border-pink-200 rounded-xl p-5 text-sm text-stone-700">
+            <p>
+              <strong>Markenkooperationen:</strong> Wir sind offen für
+              ehrliche, qualitativ hochwertige Zusammenarbeit. Bitte sende
+              uns eine kurze E-Mail mit Informationen zu deiner Marke und
+              deinem Produkt.
+            </p>
+          </div>
+        </div>
+
+        <p className="text-center text-xs text-stone-500 mt-8">
+          Cosmositio ist ein unabhängiger Produkt-Guide für Trend-Produkte
+          auf Amazon Deutschland.
+          <br />
+          © 2026 cosmositio
+        </p>
+      </article>
+    );
+  }
+
+  // TR version
   return (
     <article className="max-w-2xl mx-auto px-6 py-16">
       <header className="mb-10 text-center">
@@ -99,16 +224,15 @@ export default function IletisimPage() {
 
         <div className="bg-pink-50 border border-pink-200 rounded-xl p-5 text-sm text-stone-700">
           <p>
-            <strong>Marka işbirliği:</strong> Cosmositio, beauty markalarıyla
-            sponsorlu içerik üretiyoruz. Spam değil, kaliteli işbirlikleri
-            için her zaman açığız. Lütfen bize markanız ve ürününüz
+            <strong>Marka işbirliği:</strong> Cosmositio, kaliteli içerik
+            işbirliklerine açıktır. Lütfen bize markanız ve ürününüz
             hakkında özet bir e-posta gönderin.
           </p>
         </div>
       </div>
 
       <p className="text-center text-xs text-stone-500 mt-8">
-        Cosmositio, Amazon.com.tr&apos;deki trend ürünleri inceleyen
+        Cosmositio, Amazon Deutschland&apos;daki trend ürünleri inceleyen
         bağımsız bir rehber yayınıdır.
         <br />
         © 2026 cosmositio

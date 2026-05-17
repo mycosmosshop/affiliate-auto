@@ -1,12 +1,126 @@
 import type { Metadata } from "next";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda | Cosmositio",
-  description:
-    "Cosmositio, Türkiye'deki beauty severler için Amazon.com.tr'den özenle seçilmiş ürün önerileri sunan bağımsız bir kürasyon sitesidir.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  if (locale === "de") {
+    return {
+      title: "Über uns | Cosmositio",
+      description:
+        "Cosmositio ist ein unabhängiger Produkt-Kurations-Blog mit handverlesenen Trend-Empfehlungen aus Amazon Deutschland.",
+    };
+  }
+  return {
+    title: "Hakkımızda | Cosmositio",
+    description:
+      "Cosmositio, Amazon Deutschland'da öne çıkan trend ürünleri özenle seçen bağımsız bir kürasyon sitesidir.",
+  };
+}
 
-export default function HakkimizdaPage() {
+export default async function HakkimizdaPage() {
+  const locale = await getLocale();
+
+  if (locale === "de") {
+    return (
+      <article className="max-w-3xl mx-auto px-6 py-16">
+        <header className="mb-10 text-center">
+          <p className="text-pink-600 text-xs uppercase tracking-widest mb-3">
+            ✨ Über uns
+          </p>
+          <h1 className="font-display text-4xl md:text-5xl font-bold leading-tight">
+            Willkommen bei
+            <br />
+            <span className="italic text-pink-700">Cosmositio</span>
+          </h1>
+        </header>
+
+        <div className="prose prose-stone max-w-none text-stone-700 leading-relaxed text-lg space-y-6">
+          <p>
+            Hallo! Ich bin Volkan — ein unabhängiger Content-Creator mit
+            einer Leidenschaft für Online-Shopping und Trend-Produkte. Ich
+            habe Cosmositio gestartet, um die wirklich nützlichen, viralen
+            und preiswerten Produkte auf Amazon Deutschland zugänglich zu
+            machen.
+          </p>
+
+          <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
+            Warum Cosmositio?
+          </h2>
+          <p>
+            Online-Shopping ist überfordernd. Tausende Produkte, übertriebene
+            Werbung, und echte Bewertungen schwer zu finden. Bei Cosmositio
+            konzentrieren wir uns auf drei Dinge:
+          </p>
+          <ul className="list-disc pl-6 space-y-2">
+            <li>
+              <strong>Ehrliche Tests</strong> — wenn ein Produkt nicht
+              funktioniert, empfehlen wir es nicht, egal wie populär es ist.
+            </li>
+            <li>
+              <strong>Multi-Kategorie-Auswahl</strong> — Technik, Küche,
+              Beauty, Sport, Mama & Baby. Alles, was dein Leben erleichtert.
+            </li>
+            <li>
+              <strong>Trend-fokussiert</strong> — wir finden virale Produkte
+              aus Pinterest und TikTok auf Amazon und stellen sie vor.
+            </li>
+          </ul>
+
+          <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
+            Wie wir arbeiten
+          </h2>
+          <p>
+            Wir scannen täglich die Amazon-Deutschland-Bestseller, verfolgen
+            Pinterest- und TikTok-Trends, und analysieren echte
+            Kundenbewertungen. Jede Empfehlung basiert auf echten Verkaufsdaten,
+            verifizierten Reviews und viraler Resonanz.
+          </p>
+
+          <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
+            Kategorien
+          </h2>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>🔌 <strong>Technologie</strong> — Smart Home, Kopfhörer, Ladegeräte</li>
+            <li>🍳 <strong>Küche</strong> — Heißluftfritteuse, Mixer, Küchengeräte</li>
+            <li>💄 <strong>Beauty</strong> — Hautpflege, Make-up</li>
+            <li>💪 <strong>Sport & Gesundheit</strong> — Heim-Workout, Fitness</li>
+            <li>👶 <strong>Mama & Baby</strong> — Babypflege, Lebensretter</li>
+          </ul>
+
+          <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
+            Transparenz
+          </h2>
+          <p>
+            Die Produktlinks auf unserer Seite führen zu den entsprechenden
+            Produktseiten auf Amazon Deutschland. Die Nutzung dieser Links
+            verursacht für dich keine zusätzlichen Kosten.
+          </p>
+          <p>
+            <strong>Unser Versprechen:</strong> Kommissionen beeinflussen{" "}
+            <em>niemals</em> unsere Empfehlungen. Ein schlechtes Produkt
+            empfehlen wir nicht — egal wie hoch die Provision ist.
+          </p>
+
+          <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
+            Kontakt
+          </h2>
+          <p>
+            Fragen, Vorschläge oder Kooperationen — wir freuen uns:
+            <br />
+            📧{" "}
+            <a
+              href="mailto:volkanpekatik@gmail.com"
+              className="text-pink-700 underline"
+            >
+              volkanpekatik@gmail.com
+            </a>
+          </p>
+        </div>
+      </article>
+    );
+  }
+
+  // TR version
   return (
     <article className="max-w-3xl mx-auto px-6 py-16">
       <header className="mb-10 text-center">
@@ -24,8 +138,8 @@ export default function HakkimizdaPage() {
         <p>
           Merhaba! Ben Volkan — Türkiye&apos;de yaşayan, online alışveriş
           ve trend ürünlere ilgi duyan bağımsız bir içerik üreticisiyim.
-          Cosmositio&apos;yu Amazon.com.tr&apos;de gerçekten işe yarayan,
-          viral olan ve uygun fiyatlı ürünleri Türk takipçilere
+          Cosmositio&apos;yu Amazon Deutschland&apos;da gerçekten işe
+          yarayan, viral olan ve uygun fiyatlı ürünleri Türk takipçilere
           ulaştırmak için kurdum.
         </p>
 
@@ -57,11 +171,10 @@ export default function HakkimizdaPage() {
           Nasıl Çalışıyoruz?
         </h2>
         <p>
-          Her gün Amazon.com.tr&apos;de en çok satılan ürünleri tarar,
-          Pinterest ve TikTok trendlerini takip eder, kullanıcı
-          yorumlarını analiz ederiz. Önerdiğimiz her ürün; gerçek
-          satış verisi, doğrulanmış yorumlar ve viral değerlendirmeler
-          üzerine kuruludur.
+          Her gün Amazon Deutschland&apos;da en çok satılan ürünleri tarar,
+          Pinterest ve TikTok trendlerini takip eder, kullanıcı yorumlarını
+          analiz ederiz. Önerdiğimiz her ürün; gerçek satış verisi,
+          doğrulanmış yorumlar ve viral değerlendirmeler üzerine kuruludur.
         </p>
 
         <h2 className="font-display text-2xl font-bold text-stone-900 mt-10">
@@ -79,8 +192,8 @@ export default function HakkimizdaPage() {
           Şeffaflık
         </h2>
         <p>
-          Sitemizdeki ürün bağlantıları, Amazon.com.tr&apos;deki ilgili
-          ürün sayfalarına yönlendirme amaçlıdır. Bu bağlantıları
+          Sitemizdeki ürün bağlantıları, Amazon Deutschland&apos;daki
+          ilgili ürün sayfalarına yönlendirme amaçlıdır. Bu bağlantıları
           kullanmanız sizin için herhangi bir ek maliyet veya fiyat farkı
           oluşturmaz.
         </p>

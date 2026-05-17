@@ -23,11 +23,9 @@ interface TrProduct {
   rating?: string;
 }
 
-function loadProducts(locale: "tr" | "de" = "tr"): TrProduct[] {
+function loadProducts(): TrProduct[] {
   try {
-    const file =
-      locale === "de" ? "products-de.json" : "products-tr.json";
-    const p = path.join(process.cwd(), "data", file);
+    const p = path.join(process.cwd(), "data", "products-de.json");
     if (!fs.existsSync(p)) return [];
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch {
@@ -35,15 +33,8 @@ function loadProducts(locale: "tr" | "de" = "tr"): TrProduct[] {
   }
 }
 
-function loadAllProducts(): TrProduct[] {
-  // Her iki kategori dosyasından ASIN'leri birleştir (urun/[asin] için)
-  const tr = loadProducts("tr");
-  const de = loadProducts("de");
-  return [...tr, ...de];
-}
-
 export async function generateStaticParams() {
-  const products = loadAllProducts();
+  const products = loadProducts();
   return products.map((p) => ({ asin: p.asin }));
 }
 
@@ -53,7 +44,7 @@ export async function generateMetadata({
   params: Promise<{ asin: string }>;
 }): Promise<Metadata> {
   const { asin } = await params;
-  const products = loadAllProducts();
+  const products = loadProducts();
   const product = products.find((p) => p.asin === asin);
   if (!product) return { title: "Ürün Bulunamadı | Cosmositio" };
   return {
@@ -69,13 +60,9 @@ export default async function UrunReview({
 }) {
   const { asin } = await params;
   const locale = await getLocale();
-  // Önce locale'in kendi dosyasında ara, yoksa diğerine bak
-  const localeProducts = loadProducts(locale);
-  const otherProducts = loadProducts(locale === "tr" ? "de" : "tr");
-  let product = localeProducts.find((p) => p.asin === asin);
-  if (!product) product = otherProducts.find((p) => p.asin === asin);
+  const products = loadProducts();
+  const product = products.find((p) => p.asin === asin);
   if (!product) notFound();
-  const products = localeProducts;
 
   // Aynı kategoriden ilgili ürünler (carousel için daha fazla)
   const related = products

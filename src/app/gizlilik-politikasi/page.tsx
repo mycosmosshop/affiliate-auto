@@ -1,12 +1,225 @@
 import type { Metadata } from "next";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Gizlilik Politikası | Cosmositio",
-  description:
-    "Cosmositio gizlilik politikası — kişisel verileriniz, çerezler ve Amazon.com.tr bağlantıları hakkında bilgilendirme.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  if (locale === "de") {
+    return {
+      title: "Datenschutz | Cosmositio",
+      description:
+        "Cosmositio Datenschutzerklärung — Hinweise zu personenbezogenen Daten, Cookies und Amazon-Links.",
+    };
+  }
+  return {
+    title: "Gizlilik Politikası | Cosmositio",
+    description:
+      "Cosmositio gizlilik politikası — kişisel verileriniz, çerezler ve Amazon.de bağlantıları hakkında bilgilendirme.",
+  };
+}
 
-export default function GizlilikPage() {
+export default async function GizlilikPage() {
+  const locale = await getLocale();
+
+  if (locale === "de") {
+    return (
+      <article className="max-w-3xl mx-auto px-6 py-16">
+        <header className="mb-10">
+          <p className="text-pink-600 text-xs uppercase tracking-widest mb-3">
+            Datenschutz
+          </p>
+          <h1 className="font-display text-4xl font-bold leading-tight">
+            Datenschutzerklärung
+          </h1>
+          <p className="text-stone-500 text-sm mt-3">
+            Letzte Aktualisierung: 17. Mai 2026
+          </p>
+        </header>
+
+        <div className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-6">
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              1. Einleitung
+            </h2>
+            <p>
+              Cosmositio (&quot;wir&quot;, &quot;die Website&quot;) respektiert
+              die Privatsphäre unserer Besucher. Diese Datenschutzerklärung
+              informiert dich darüber, welche Daten beim Besuch unserer Seite
+              erfasst werden und wie sie verwendet werden.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              2. Amazon Deutschland Links
+            </h2>
+            <p>
+              Die Produktlinks auf unserer Website führen zu den
+              entsprechenden Produktseiten auf Amazon Deutschland. Wenn du
+              über diese Links einen Kauf tätigst, entstehen dir keine
+              zusätzlichen Kosten oder Preisaufschläge.
+            </p>
+            <p>
+              Unsere Empfehlungen basieren auf Nutzerbewertungen,
+              Produkteigenschaften und inhaltlicher Analyse. Wir bevorzugen
+              keine Marke aufgrund von Bezahlung oder Sponsoring.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              3. Welche Daten wir erfassen
+            </h2>
+            <p>
+              Cosmositio erfasst <strong>keine personenbezogenen Daten</strong>{" "}
+              von Besuchern. Konkret nicht:
+            </p>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Name, E-Mail oder Kontaktdaten (außer du schreibst uns freiwillig)</li>
+              <li>Zahlungsinformationen</li>
+              <li>Browser-Historie oder eigene Tracking-Cookies</li>
+              <li>Standortinformationen</li>
+            </ul>
+            <p>
+              Wenn du uns direkt per E-Mail schreibst, verwenden wir deinen
+              Namen und deine Kontaktdaten ausschließlich zur Beantwortung.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              4. Drittanbieter-Dienste
+            </h2>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>
+                <strong>Amazon Deutschland:</strong> Wenn du auf einen
+                Produktlink klickst, gilt die{" "}
+                <a
+                  href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010"
+                  className="text-pink-700 underline"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Datenschutzerklärung von Amazon
+                </a>
+                . Cosmositio hat keinen Zugriff auf deinen Namen, deine
+                Adresse oder Zahlungsdaten — nur auf anonyme aggregierte
+                Verkaufsberichte.
+              </li>
+              <li>
+                <strong>Vercel (Hosting):</strong> Diese Seite wird auf der
+                Vercel-Plattform gehostet. Vercels Standard-Serverlogs können
+                anfallen.
+              </li>
+              <li>
+                <strong>Upstash Redis:</strong> Anonyme Aufrufzähler und
+                Bewertungen werden in einer Redis-Datenbank gespeichert; ohne
+                Bezug zu deiner Identität.
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              5. Cookies
+            </h2>
+            <p>
+              Cosmositio setzt keine eigenen Tracking-Cookies. Beim Klicken
+              auf einen Amazon-Link wird das Affiliate-Cookie von Amazon
+              (24-Stunden-Tracking) gesetzt — damit eine Provision
+              zugeordnet werden kann, falls du das Produkt kaufst.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              6. Datenschutz für Minderjährige
+            </h2>
+            <p>
+              Cosmositio richtet sich nicht an Personen unter 16 Jahren und
+              erfasst keine wissentlichen Daten von ihnen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              7. KI-Nutzung
+            </h2>
+            <p>
+              Wir setzen KI (OpenAI) bei der Content-Erstellung und
+              Produktempfehlungen ein. KI-Ausgaben sind{" "}
+              <strong>rein informativ</strong> und ersetzen keine
+              medizinische oder fachliche Beratung. Bei Hautproblemen
+              konsultiere bitte einen Dermatologen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              8. Deine Rechte (DSGVO)
+            </h2>
+            <p>
+              Da wir keine personenbezogenen Daten erheben, sind klassische
+              DSGVO-Auskunfts- und Löschanträge bei uns nicht relevant. Für
+              Daten bei Amazon wende dich bitte an Amazon, für Vercel-Logs
+              an Vercel.
+            </p>
+            <p>
+              Falls du uns freiwillig per E-Mail kontaktiert hast, kannst
+              du jederzeit die Löschung deiner Korrespondenz beantragen:{" "}
+              <a
+                href="mailto:volkanpekatik@gmail.com"
+                className="text-pink-700 underline"
+              >
+                volkanpekatik@gmail.com
+              </a>
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              9. Aktualisierungen
+            </h2>
+            <p>
+              Wir können diese Richtlinie von Zeit zu Zeit aktualisieren.
+              Wichtige Änderungen werden mit dem &quot;Letzte
+              Aktualisierung&quot;-Datum oben gekennzeichnet. Die weitere
+              Nutzung der Seite gilt als Zustimmung zur aktuellen Fassung.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
+              10. Kontakt
+            </h2>
+            <p>
+              Bei Fragen:
+              <br />
+              📧{" "}
+              <a
+                href="mailto:volkanpekatik@gmail.com"
+                className="text-pink-700 underline"
+              >
+                volkanpekatik@gmail.com
+              </a>
+              <br />
+              📞 +90 542 793 9382
+              <br />
+              📍 İstasyon Mah. Cengiz Topel Cad. No:111/2 C Blok 59500
+              Çerkezköy / Tekirdağ, Türkei
+            </p>
+          </section>
+
+          <hr className="my-10 border-stone-200" />
+          <p className="text-xs text-stone-500">
+            © 2026 cosmositio. Diese Seite wird auf GitHub versioniert und
+            auf Vercel gehostet.
+          </p>
+        </div>
+      </article>
+    );
+  }
+
+  // TR version
   return (
     <article className="max-w-3xl mx-auto px-6 py-16">
       <header className="mb-10">
@@ -17,7 +230,7 @@ export default function GizlilikPage() {
           Gizlilik Politikası
         </h1>
         <p className="text-stone-500 text-sm mt-3">
-          Son güncelleme: 16 Mayıs 2026
+          Son güncelleme: 17 Mayıs 2026
         </p>
       </header>
 
@@ -36,10 +249,10 @@ export default function GizlilikPage() {
 
         <section>
           <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
-            2. Amazon.com.tr Bağlantıları Hakkında
+            2. Amazon.de Bağlantıları Hakkında
           </h2>
           <p>
-            Sitemizde yer alan ürün bağlantıları, Amazon.com.tr&apos;deki
+            Sitemizde yer alan ürün bağlantıları, Amazon Deutschland&apos;daki
             ilgili ürün sayfalarına yönlendirme amaçlıdır. Bu bağlantılar
             üzerinden bir satın alma gerçekleştirseniz dahi, sizin için
             herhangi bir ek maliyet veya fiyat farkı söz konusu değildir.
@@ -77,10 +290,10 @@ export default function GizlilikPage() {
           </h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <strong>Amazon.com.tr:</strong> Bir ürün bağlantısına
+              <strong>Amazon Deutschland:</strong> Bir ürün bağlantısına
               tıklayıp Amazon&apos;a giderseniz, Amazon&apos;un kendi{" "}
               <a
-                href="https://www.amazon.com.tr/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ"
+                href="https://www.amazon.de/gp/help/customer/display.html?nodeId=201909010"
                 className="text-pink-700 underline"
                 target="_blank"
                 rel="noopener"
@@ -88,8 +301,8 @@ export default function GizlilikPage() {
                 Gizlilik Politikası
               </a>{" "}
               geçerlidir. Cosmositio, Amazon üzerindeki adınız, adresiniz
-              veya ödeme detaylarınıza erişemez — yalnızca anonim,
-              toplam komisyon raporları alır.
+              veya ödeme detaylarınıza erişemez — yalnızca anonim, toplam
+              komisyon raporları alır.
             </li>
             <li>
               <strong>Vercel (hosting):</strong> Bu site, Vercel
@@ -97,9 +310,9 @@ export default function GizlilikPage() {
               logları geçerli olabilir.
             </li>
             <li>
-              <strong>Pinterest:</strong> Sitedeki bazı pin&apos;ler
-              Pinterest&apos;ten gömülmüş olabilir. Pinterest&apos;in
-              kendi gizlilik politikası geçerlidir.
+              <strong>Upstash Redis:</strong> Anonim görüntülenme sayacı
+              ve yorumlar Redis veritabanında saklanır; kimliğinizle
+              eşleşmez.
             </li>
           </ul>
         </section>
@@ -109,11 +322,10 @@ export default function GizlilikPage() {
             5. Çerezler
           </h2>
           <p>
-            Cosmositio kendi tarama çerezi kullanmaz. Amazon
-            bağlantısına tıkladığınızda, Amazon&apos;un ortaklık tıklama
-            takibi (cookie tabanlı, 24 saat süreli) kullanılır — bu,
-            ürünü o tıklama sonrası satın alırsanız komisyon
-            atanabilmesi içindir.
+            Cosmositio kendi tarama çerezi kullanmaz. Amazon bağlantısına
+            tıkladığınızda, Amazon&apos;un ortaklık tıklama takibi (cookie
+            tabanlı, 24 saat süreli) kullanılır — bu, ürünü o tıklama
+            sonrası satın alırsanız komisyon atanabilmesi içindir.
           </p>
         </section>
 
@@ -123,8 +335,7 @@ export default function GizlilikPage() {
           </h2>
           <p>
             Cosmositio, 13 yaşın altındaki çocuklara yönelik içerik
-            üretmez ve onlardan bilerek bilgi toplamaz. Beauty içerik
-            yetişkin tüketiciler içindir.
+            üretmez ve onlardan bilerek bilgi toplamaz.
           </p>
         </section>
 
@@ -136,8 +347,7 @@ export default function GizlilikPage() {
             Sitemiz, içerik üretiminde ve ürün önerilerinde yapay zeka
             (OpenAI) kullanabilir. Yapay zeka çıktıları{" "}
             <strong>bilgilendirme amaçlıdır</strong>, tıbbi veya
-            profesyonel cilt bakım tavsiyesi yerine geçmez. Cilt sağlığı
-            konularında bir dermatoloğa danışın.
+            profesyonel cilt bakım tavsiyesi yerine geçmez.
           </p>
         </section>
 
@@ -168,10 +378,10 @@ export default function GizlilikPage() {
             9. Politika Güncellemeleri
           </h2>
           <p>
-            Bu politikayı zaman zaman güncelleyebiliriz. Önemli
-            değişiklikler en üstteki &quot;Son güncelleme&quot; tarihiyle
-            belirtilir. Sitenin kullanımına devam etmeniz, güncel
-            politikayı kabul ettiğiniz anlamına gelir.
+            Bu politikayı zaman zaman güncelleyebiliriz. Önemli değişiklikler
+            en üstteki &quot;Son güncelleme&quot; tarihiyle belirtilir.
+            Sitenin kullanımına devam etmeniz, güncel politikayı kabul
+            ettiğiniz anlamına gelir.
           </p>
         </section>
 
@@ -198,8 +408,8 @@ export default function GizlilikPage() {
 
         <hr className="my-10 border-stone-200" />
         <p className="text-xs text-stone-500">
-          © 2026 cosmositio. Bu sayfa GitHub üzerinde versiyon
-          kontrollüdür ve Vercel platformunda barındırılır.
+          © 2026 cosmositio. Bu sayfa GitHub üzerinde versiyon kontrollüdür
+          ve Vercel platformunda barındırılır.
         </p>
       </div>
     </article>

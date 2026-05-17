@@ -17,11 +17,10 @@ interface TrProduct {
   rating?: string;
 }
 
-function loadProducts(locale: "tr" | "de"): TrProduct[] {
+// Her dil için aynı amazon.de ürünleri (EUR fiyatla, amazon.de affiliate ile)
+function loadProducts(): TrProduct[] {
   try {
-    const file =
-      locale === "de" ? "products-de.json" : "products-tr.json";
-    const p = path.join(process.cwd(), "data", file);
+    const p = path.join(process.cwd(), "data", "products-de.json");
     if (!fs.existsSync(p)) return [];
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch {
@@ -90,7 +89,7 @@ function slugify(s: string): string {
 export default async function Home() {
   const locale = await getLocale();
   const m = t(locale);
-  const products = loadProducts(locale);
+  const products = loadProducts();
   const grouped = products.reduce<Record<string, TrProduct[]>>((acc, p) => {
     (acc[p.category] = acc[p.category] || []).push(p);
     return acc;
