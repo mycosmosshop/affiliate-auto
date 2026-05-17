@@ -36,6 +36,22 @@ yarn-error.log*
 # vercel
 .vercel
 
+# claude worktrees (lokal)
+/.claude/worktrees/
+
+# session/credential dosyaları
+pinterest-session.json
+*.session.json
+
+# debug screenshots
+debug-*.png
+debug.png
+
+# pinterest log
+data/pins-log.json
+data/pinterest-research.json
+cache/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
