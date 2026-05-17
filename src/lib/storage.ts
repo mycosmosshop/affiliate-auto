@@ -46,6 +46,11 @@ export interface PinLog {
   category: string;
   createdAt: string;
   platform: string;
+  productImage?: string;
+  productPrice?: string;
+  affiliateUrl?: string;
+  board?: string;
+  status?: string;
 }
 
 export function getPinLogs(): PinLog[] {
