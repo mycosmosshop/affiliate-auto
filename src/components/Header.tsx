@@ -13,10 +13,10 @@ export default function Header() {
           <Image
             src="/logo.png"
             alt="cosmositio"
-            width={440}
-            height={132}
+            width={640}
+            height={192}
             priority
-            className="h-24 w-auto"
+            className="h-36 md:h-40 w-auto"
           />
         </Link>
         <nav className="flex items-center gap-1 text-sm font-semibold">

@@ -2,6 +2,7 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import ProductImage from "@/components/ProductImage";
+import { getViews, formatViews, getTotalCommentCount } from "@/lib/product-meta";
 
 interface TrProduct {
   asin: string;
@@ -208,6 +209,8 @@ export default function Home() {
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {items.map((p) => {
                   const shortUrl = shortenAmazonUrl(p.affiliateUrl);
+                  const views = getViews(p.asin);
+                  const commentCount = getTotalCommentCount(p.asin);
                   return (
                     <article
                       key={p.asin}
@@ -230,6 +233,23 @@ export default function Home() {
                             ⭐ {p.rating}
                           </span>
                         )}
+
+                        {/* View counter — sol alt */}
+                        <span className="absolute bottom-3 left-3 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full text-xs font-semibold text-stone-700 shadow-sm z-10 flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                          {formatViews(views)}
+                        </span>
+
+                        {/* Yorum sayısı — sağ alt */}
+                        <span className="absolute bottom-3 right-3 bg-white/95 backdrop-blur px-2.5 py-1 rounded-full text-xs font-semibold text-stone-700 shadow-sm z-10 flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                          </svg>
+                          {commentCount}
+                        </span>
                       </Link>
 
                       {/* Content */}
