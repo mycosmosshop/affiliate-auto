@@ -7,10 +7,10 @@ export default function Header() {
       {/* Üst trend strip — canlı gradient */}
       <div className="h-1 w-full bg-gradient-to-r from-rose-500 via-pink-500 via-amber-500 to-rose-500 bg-[length:200%_100%] animate-shimmer" />
 
-      <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between gap-6">
         <Link
           href="/"
-          className="flex items-center btn-magnet -my-2"
+          className="flex items-center btn-magnet"
           aria-label="cosmositio anasayfa"
         >
           <Image
@@ -19,7 +19,7 @@ export default function Header() {
             width={640}
             height={192}
             priority
-            className="h-36 md:h-40 w-auto"
+            className="h-28 md:h-32 w-auto mix-blend-multiply"
           />
         </Link>
 

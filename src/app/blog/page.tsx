@@ -9,12 +9,32 @@ export const metadata: Metadata = {
 
 const POSTS = [
   {
+    slug: "kablosuz-kulaklik-rehberi-2026",
+    title: "Kablosuz Kulaklık Almadan Önce: AirPods, Galaxy Buds, JBL — Hangisi?",
+    excerpt:
+      "1.500 TL'den 6.000 TL'ye kadar — bütçenize göre Amazon TR'de bulabileceğiniz en mantıklı 6 kablosuz kulaklık. Aktif gürültü engelleme önemli mi?",
+    category: "Teknoloji",
+    date: "17 Mayıs 2026",
+    readTime: "9 dk okuma",
+    emoji: "🎧",
+  },
+  {
+    slug: "evde-fitness-baslangic-seti",
+    title: "Evde Fitness'a Başlamak: 1.000 TL'lik Minimal Ekipman Listesi",
+    excerpt:
+      "Spor salonu üyeliği almadan evde kas yapmak mümkün mü? Yoga matı, direnç bandı, dambıl seti — sıfırdan başlamak için 7 ürün.",
+    category: "Spor & Sağlık",
+    date: "16 Mayıs 2026",
+    readTime: "7 dk okuma",
+    emoji: "💪",
+  },
+  {
     slug: "air-fryer-rehberi",
     title: "Air Fryer Almadan Önce Bilmeniz Gereken 7 Şey (2026 Rehberi)",
     excerpt:
       "Türkiye'de viral olan air fryer'lar gerçekten alınır mı? Hangi modeli, ne kadara almalısınız? Mutfak deneyimimle dürüst rehber.",
     category: "Mutfak",
-    date: "16 Mayıs 2026",
+    date: "15 Mayıs 2026",
     readTime: "8 dk okuma",
     emoji: "🍟",
   },
@@ -24,9 +44,19 @@ const POSTS = [
     excerpt:
       "Retinol, niasinamid, peptid... 40+ ciltler için gerçekten işe yarayan ürünler hangileri? Amazon TR'de mevcut olanlardan kürasyon.",
     category: "Güzellik",
-    date: "15 Mayıs 2026",
+    date: "14 Mayıs 2026",
     readTime: "10 dk okuma",
     emoji: "✨",
+  },
+  {
+    slug: "kahve-makinesi-rehberi",
+    title: "Evde Espresso: French Press'ten Bean-to-Cup'a — 5 Bütçe, 5 Makine",
+    excerpt:
+      "Sabah kahvesi tutkunları için Amazon TR'deki en mantıklı kahve makineleri. 200 TL'lik mokapot mı, 8.000 TL'lik DeLonghi mi?",
+    category: "Mutfak",
+    date: "13 Mayıs 2026",
+    readTime: "9 dk okuma",
+    emoji: "☕",
   },
   {
     slug: "yeni-anne-hayat-kurtaran-urunler",
@@ -37,6 +67,26 @@ const POSTS = [
     date: "12 Mayıs 2026",
     readTime: "12 dk okuma",
     emoji: "👶",
+  },
+  {
+    slug: "sac-bakim-holy-grail",
+    title: "Hasarlı Saç İçin Holy Grail: Olaplex Türkiye'de Var mı, Alternatif Ne?",
+    excerpt:
+      "Boyalı, sertleşmiş, mat saçlar için Amazon TR'deki en etkili 6 saç bakım ürünü. K18, Olaplex No.3, argan yağı — gerçekten işe yarıyor mu?",
+    category: "Güzellik",
+    date: "11 Mayıs 2026",
+    readTime: "8 dk okuma",
+    emoji: "💁",
+  },
+  {
+    slug: "akilli-ev-baslangic",
+    title: "Akıllı Eve Başlangıç: 2.500 TL ile Evi Smart Yapmanın 5 Adımı",
+    excerpt:
+      "Smart plug, akıllı ampul, kamera, robot süpürge — Türkiye'de Wi-Fi ile çalışan, Türkçe uygulamalı ürünler. Tuya/Tapo karşılaştırması.",
+    category: "Teknoloji",
+    date: "10 Mayıs 2026",
+    readTime: "10 dk okuma",
+    emoji: "🏠",
   },
 ];
 

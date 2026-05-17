@@ -291,11 +291,11 @@ export default function Home() {
             Dürüst öneriler, gerçek seçkiler
           </h2>
           <p className="leading-relaxed text-stone-400">
-            Cosmositio, <strong className="text-white">Amazon.com.tr Partnernet</strong>{" "}
-            ortaklık programının bir üyesidir. Site üzerindeki linklerden yapılan
-            nitelikli alışverişlerden küçük bir komisyon kazanırız —{" "}
-            <strong className="text-white">sizin için ek bir maliyet oluşturmaz</strong>.
-            Bu komisyon, hangi ürünü önereceğimizi <em>asla</em> belirlemez.
+            Cosmositio, Amazon.com.tr&apos;de viral olan, gerçek
+            kullanıcı yorumlarıyla öne çıkan ürünleri özenle inceler ve
+            <strong className="text-white"> dürüstçe</strong> önerir.
+            Beğenmediğimiz bir ürünü, anlaşma ya da indirim karşılığında
+            <em> asla</em> listelemiyoruz.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
             <Link
