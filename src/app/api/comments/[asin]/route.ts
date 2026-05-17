@@ -7,10 +7,11 @@ export async function GET(
   { params }: { params: Promise<{ asin: string }> }
 ) {
   const { asin } = await params;
-  return NextResponse.json({ asin, comments: getComments(asin) });
+  const comments = await getComments(asin);
+  return NextResponse.json({ asin, comments });
 }
 
-// POST /api/comments/[asin] — yeni yorum ekle (onay bekler)
+// POST /api/comments/[asin] — yeni yorum (moderasyon bekler)
 export async function POST(
   req: Request,
   { params }: { params: Promise<{ asin: string }> }
@@ -38,7 +39,7 @@ export async function POST(
     );
   }
 
-  const comment = addComment({ asin, author, rating, text });
+  const comment = await addComment({ asin, author, rating, text });
   return NextResponse.json({
     ok: true,
     message: "Yorumun moderasyona gönderildi.",

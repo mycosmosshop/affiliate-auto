@@ -127,8 +127,8 @@ export default async function UrunReview({
   const catEmoji = categoryEmoji[product.category] || "📦";
 
   // Görüntülenme + yorumlar (gerçek — sıfırdan başlar, ziyaretle artar)
-  const initialViews = getViews(product.asin);
-  const initialComments = getComments(product.asin);
+  const initialViews = await getViews(product.asin);
+  const initialComments = await getComments(product.asin);
 
   return (
     <article className="bg-stone-50">
