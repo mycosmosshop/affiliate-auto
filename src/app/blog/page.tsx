@@ -138,8 +138,8 @@ export default function BlogIndex() {
       </div>
 
       <p className="text-center text-xs text-stone-500 mt-12">
-        Cosmositio, Amazon.com.tr Partnernet ortaklık programına başvuru
-        aşamasındadır.
+        Cosmositio, Amazon.com.tr&apos;deki trend ürünleri inceleyen
+        bağımsız bir rehber yayınıdır.
       </p>
     </div>
   );

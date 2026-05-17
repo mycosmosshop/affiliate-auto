@@ -187,9 +187,9 @@ export default function KablosuzKulaklikRehberi2026Post() {
         </div>
 
         <p className="text-sm text-stone-500 mt-8">
-          <strong>Şeffaflık:</strong> Bu yazıdaki Amazon.com.tr linkleri
-          Partnernet ortaklık programı ile ilişkili. Tıklayıp satın
-          alırsanız küçük bir komisyon kazanırız.
+          <strong>Şeffaflık:</strong> Bu yazıdaki ürün önerileri,
+          kullanıcı yorumları ve içerik analizine dayanır; hiçbir
+          markayla ücretli iş birliğimiz yoktur.
         </p>
       </div>
     </article>

@@ -162,10 +162,9 @@ export default function AirFryerPost() {
         </div>
 
         <p className="text-sm text-stone-500 mt-8">
-          <strong>Şeffaflık notu:</strong> Bu yazıdaki Amazon.com.tr
-          linkleri Partnernet ortaklık programı ile ilişkili olabilir.
-          Tıklayıp satın alırsanız küçük bir komisyon kazanırız, sizin
-          için ek bir maliyet oluşturmaz.
+          <strong>Şeffaflık:</strong> Bu yazıdaki ürün önerileri,
+          kullanıcı yorumları ve içerik analizine dayanır; hiçbir
+          markayla ücretli iş birliğimiz yoktur.
         </p>
       </div>
     </article>

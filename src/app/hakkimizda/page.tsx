@@ -79,11 +79,10 @@ export default function HakkimizdaPage() {
           Şeffaflık
         </h2>
         <p>
-          Cosmositio, Amazon.com.tr Partnernet ortaklık programına başvuru
-          aşamasındadır. Onay sonrası, sitedeki linkler üzerinden yapılan
-          nitelikli alışverişlerden küçük bir komisyon kazanmaya başlayacağız.
-          Bu, sizin için ekstra maliyet oluşturmaz ve bağımsız önerilerimizi
-          sürdürmemize destek olur.
+          Sitemizdeki ürün bağlantıları, Amazon.com.tr&apos;deki ilgili
+          ürün sayfalarına yönlendirme amaçlıdır. Bu bağlantıları
+          kullanmanız sizin için herhangi bir ek maliyet veya fiyat farkı
+          oluşturmaz.
         </p>
         <p>
           <strong>Şuna söz veriyoruz:</strong> Komisyon, bir ürünü önerip

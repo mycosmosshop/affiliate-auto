@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Gizlilik Politikası | Cosmositio",
   description:
-    "Cosmositio gizlilik politikası — kişisel verileriniz, çerezler ve Amazon Partnernet katılımı hakkında bilgilendirme.",
+    "Cosmositio gizlilik politikası — kişisel verileriniz, çerezler ve Amazon.com.tr bağlantıları hakkında bilgilendirme.",
 };
 
 export default function GizlilikPage() {
@@ -36,26 +36,18 @@ export default function GizlilikPage() {
 
         <section>
           <h2 className="font-display text-2xl font-bold text-stone-900 mt-8">
-            2. Amazon Partnernet Açıklaması (Affiliate Disclosure)
+            2. Amazon.com.tr Bağlantıları Hakkında
           </h2>
           <p>
-            Cosmositio,{" "}
-            <strong>Amazon.com.tr Partnernet ortaklık programına başvuru
-            aşamasındadır</strong>. Başvurumuz onaylandıktan sonra, site
-            üzerindeki Amazon ürün bağlantılarına tıklayıp satın alma
-            yapmanız durumunda Amazon&apos;dan küçük bir komisyon kazanmaya
-            başlayacağız. Bu durum, sizin için herhangi bir ek maliyet
-            oluşturmayacaktır.
+            Sitemizde yer alan ürün bağlantıları, Amazon.com.tr&apos;deki
+            ilgili ürün sayfalarına yönlendirme amaçlıdır. Bu bağlantılar
+            üzerinden bir satın alma gerçekleştirseniz dahi, sizin için
+            herhangi bir ek maliyet veya fiyat farkı söz konusu değildir.
           </p>
           <p>
-            Şu anda site üzerindeki linkler yönlendirme amaçlıdır; aktif
-            bir affiliate ID tag&apos;i taşımamaktadır. Onay alındığında bu
-            sayfa güncellenecektir.
-          </p>
-          <p>
-            Önerilerimiz, komisyon oranlarından bağımsızdır — sadece
-            kullanıcı yorumları, etken madde analizi ve kişisel
-            deneyimimize dayanır.
+            Önerilerimiz; kullanıcı yorumları, ürün özellikleri ve içerik
+            analizine dayanır. Bizim için ödeme yapan ya da sponsorluk
+            sağlayan herhangi bir markaya öncelik vermiyoruz.
           </p>
         </section>
 
