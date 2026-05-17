@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getLocale, t } from "@/lib/i18n";
+import LangSwitch from "@/components/LangSwitch";
 
 export default async function Header() {
   const locale = await getLocale();
@@ -58,19 +59,9 @@ export default async function Header() {
             {/* Dil değiştirme (cross-domain link) */}
             <span className="ml-3 hidden md:inline text-stone-300">|</span>
             {locale === "tr" ? (
-              <a
-                href="https://laden.cosmositio.com"
-                className="hidden md:inline px-3 py-2 text-xs font-bold uppercase text-stone-500 hover:text-rose-700 tracking-wider"
-              >
-                🇩🇪 DE
-              </a>
+              <LangSwitch toLocale="de" href="https://laden.cosmositio.com" />
             ) : (
-              <a
-                href="https://shop.cosmositio.com"
-                className="hidden md:inline px-3 py-2 text-xs font-bold uppercase text-stone-500 hover:text-rose-700 tracking-wider"
-              >
-                🇹🇷 TR
-              </a>
+              <LangSwitch toLocale="tr" href="https://shop.cosmositio.com" />
             )}
           </nav>
         </div>
