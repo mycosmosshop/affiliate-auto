@@ -6,7 +6,8 @@ import path from "path";
 import ProductImage from "@/components/ProductImage";
 import RelatedCarousel from "@/components/RelatedCarousel";
 import Reviews from "@/components/Reviews";
-import { getViews, formatViews, getReviews, getTotalCommentCount } from "@/lib/product-meta";
+import ViewTracker from "@/components/ViewTracker";
+import { getViews, getComments } from "@/lib/product-meta";
 
 interface TrProduct {
   asin: string;
@@ -125,10 +126,9 @@ export default async function UrunReview({
   };
   const catEmoji = categoryEmoji[product.category] || "📦";
 
-  // Görüntülenme + yorumlar
-  const views = getViews(product.asin);
-  const reviews = getReviews(product.asin, product.category);
-  const totalComments = getTotalCommentCount(product.asin);
+  // Görüntülenme + yorumlar (gerçek — sıfırdan başlar, ziyaretle artar)
+  const initialViews = getViews(product.asin);
+  const initialComments = getComments(product.asin);
 
   return (
     <article className="bg-stone-50">
@@ -164,19 +164,7 @@ export default async function UrunReview({
                 ⭐ {product.rating}/5
               </span>
             )}
-            <span className="bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-semibold flex items-center gap-1.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-                <circle cx="12" cy="12" r="3" />
-              </svg>
-              {formatViews(views)} görüntülenme
-            </span>
-            <span className="bg-stone-100 text-stone-700 px-2.5 py-1 rounded-full font-semibold flex items-center gap-1.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-              </svg>
-              {totalComments} yorum
-            </span>
+            <ViewTracker asin={product.asin} initial={initialViews} />
             <span className="text-stone-600">Amazon.com.tr</span>
           </div>
 
@@ -289,8 +277,8 @@ export default async function UrunReview({
         </div>
       </section>
 
-      {/* Yorumlar */}
-      <Reviews reviews={reviews} totalCount={totalComments} />
+      {/* Yorumlar — gerçek, sıfırdan başlar */}
+      <Reviews asin={product.asin} initialComments={initialComments} />
 
       {/* İlgili ürünler — oklarla kaydırılabilir carousel */}
       {related.length > 0 && (
