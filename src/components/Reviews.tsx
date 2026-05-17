@@ -10,13 +10,59 @@ interface Comment {
   createdAt: string;
 }
 
+type Locale = "tr" | "de";
+
+const STR = {
+  tr: {
+    title: "Yorumlar",
+    count: (n: number) => `${n} kullanıcı yorumu`,
+    avg: "Ortalama",
+    emptyTitle: "Henüz yorum yok",
+    emptySub: "Bu ürünün ilk yorumunu sen yaz, başkalarına yardımcı ol!",
+    write: "Yorum bırak",
+    name: "İsim",
+    namePlaceholder: "Adın...",
+    rating: "Puan",
+    comment: "Yorumun",
+    commentPlaceholder: "Bu ürünü nasıl buldun? Deneyimini paylaş...",
+    submit: "Yorumu gönder",
+    submitting: "Gönderiliyor...",
+    disclaimer: "Yorumlar moderasyondan geçtikten sonra yayınlanır. E-posta adresi paylaşılmaz.",
+    submittedThanks: "Yorumun alındı, teşekkürler!",
+    submittedSub: "Moderasyondan sonra burada görünür olacak.",
+    writeNew: "Yeni yorum yaz",
+  },
+  de: {
+    title: "Bewertungen",
+    count: (n: number) => `${n} Nutzerbewertungen`,
+    avg: "Durchschnitt",
+    emptyTitle: "Noch keine Bewertung",
+    emptySub: "Schreib die erste Bewertung und hilf anderen Käufern!",
+    write: "Bewertung schreiben",
+    name: "Name",
+    namePlaceholder: "Dein Name...",
+    rating: "Sterne",
+    comment: "Deine Bewertung",
+    commentPlaceholder: "Wie hat dir das Produkt gefallen? Teile deine Erfahrung...",
+    submit: "Bewertung senden",
+    submitting: "Wird gesendet...",
+    disclaimer: "Bewertungen werden nach Moderation veröffentlicht. E-Mail-Adressen werden nicht geteilt.",
+    submittedThanks: "Deine Bewertung wurde empfangen. Danke!",
+    submittedSub: "Sie wird nach Moderation hier erscheinen.",
+    writeNew: "Neue Bewertung schreiben",
+  },
+};
+
 export default function Reviews({
   asin,
   initialComments,
+  locale = "tr",
 }: {
   asin: string;
   initialComments: Comment[];
+  locale?: Locale;
 }) {
+  const L = STR[locale];
   const [comments, setComments] = useState<Comment[]>(initialComments);
   const [submitting, setSubmitting] = useState(false);
   const [submitMsg, setSubmitMsg] = useState<string | null>(null);
@@ -68,7 +114,7 @@ export default function Reviews({
 
   const fmtDate = (iso: string) => {
     try {
-      return new Date(iso).toLocaleDateString("tr-TR", {
+      return new Date(iso).toLocaleDateString(locale === "de" ? "de-DE" : "tr-TR", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -84,14 +130,14 @@ export default function Reviews({
         <div className="flex items-center justify-between flex-wrap gap-4 mb-8 pb-6 border-b border-stone-200">
           <div>
             <h2 className="font-display text-3xl font-bold text-stone-900">
-              Yorumlar
+              {L.title}
             </h2>
             <p className="text-sm text-stone-500 mt-1">
-              {comments.length} kullanıcı yorumu
+              {L.count(comments.length)}
               {comments.length > 0 && (
                 <>
                   {" "}
-                  • Ortalama{" "}
+                  • {L.avg}{" "}
                   <span className="font-semibold text-amber-600">
                     ⭐ {avg.toFixed(1)}/5
                   </span>
@@ -119,11 +165,9 @@ export default function Reviews({
           <div className="text-center py-12 bg-stone-50 rounded-2xl border-2 border-dashed border-stone-200">
             <div className="text-5xl mb-3">💭</div>
             <p className="text-stone-700 font-semibold mb-1">
-              Henüz yorum yok
+              {L.emptyTitle}
             </p>
-            <p className="text-sm text-stone-500">
-              Bu ürünün ilk yorumunu sen yaz, başkalarına yardımcı ol!
-            </p>
+            <p className="text-sm text-stone-500">{L.emptySub}</p>
           </div>
         ) : (
           <div className="space-y-6">
@@ -164,28 +208,28 @@ export default function Reviews({
         {/* Yorum yazma formu */}
         <div className="mt-10 pt-8 border-t border-stone-200">
           <h3 className="font-display text-xl font-bold text-stone-900 mb-4">
-            Yorum bırak
+            {L.write}
           </h3>
 
           {submitMsg ? (
             <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-5 text-emerald-800 mb-4">
-              <p className="font-semibold">✓ {submitMsg}</p>
+              <p className="font-semibold">✓ {L.submittedThanks}</p>
               <p className="text-sm mt-1 text-emerald-700">
-                Moderasyondan sonra burada görünür olacak.
+                {L.submittedSub}
               </p>
               <button
                 type="button"
                 onClick={() => setSubmitMsg(null)}
                 className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 mt-3 underline"
               >
-                Yeni yorum yaz
+                {L.writeNew}
               </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 mb-2">
-                  İsim
+                  {L.name}
                 </label>
                 <input
                   type="text"
@@ -194,13 +238,13 @@ export default function Reviews({
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-100 transition"
-                  placeholder="Adın..."
+                  placeholder={L.namePlaceholder}
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 mb-2">
-                  Puan
+                  {L.rating}
                 </label>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((n) => (
@@ -213,7 +257,7 @@ export default function Reviews({
                           ? "text-amber-500"
                           : "text-stone-300 hover:text-amber-300"
                       }`}
-                      aria-label={`${n} yıldız`}
+                      aria-label={`${n}`}
                     >
                       ★
                     </button>
@@ -223,7 +267,7 @@ export default function Reviews({
 
               <div>
                 <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 mb-2">
-                  Yorumun
+                  {L.comment}
                 </label>
                 <textarea
                   required
@@ -233,7 +277,7 @@ export default function Reviews({
                   value={form.text}
                   onChange={(e) => setForm({ ...form, text: e.target.value })}
                   className="w-full px-4 py-2.5 border border-stone-300 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-100 transition resize-none"
-                  placeholder="Bu ürünü nasıl buldun? Deneyimini paylaş..."
+                  placeholder={L.commentPlaceholder}
                 />
               </div>
 
@@ -242,12 +286,9 @@ export default function Reviews({
                 disabled={submitting}
                 className="bg-gradient-to-r from-pink-600 to-amber-500 hover:from-pink-700 hover:to-amber-600 text-white font-semibold px-6 py-3 rounded-xl transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {submitting ? "Gönderiliyor..." : "Yorumu gönder"}
+                {submitting ? L.submitting : L.submit}
               </button>
-              <p className="text-xs text-stone-500">
-                Yorumlar moderasyondan geçtikten sonra yayınlanır.
-                E-posta adresi paylaşılmaz.
-              </p>
+              <p className="text-xs text-stone-500">{L.disclaimer}</p>
             </form>
           )}
         </div>

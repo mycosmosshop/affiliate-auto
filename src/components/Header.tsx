@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getLocale, t } from "@/lib/i18n";
 
-export default function Header() {
+export default async function Header() {
+  const locale = await getLocale();
+  const m = t(locale);
+  const blogHref = locale === "de" ? "/blog/de" : "/blog";
+
   return (
     <header className="bg-white/85 backdrop-blur-xl sticky top-0 z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.04),0_8px_24px_-12px_rgba(236,72,153,0.15)]">
       {/* Üst trend strip — canlı gradient */}
@@ -11,7 +16,7 @@ export default function Header() {
         <Link
           href="/"
           className="flex items-center btn-magnet"
-          aria-label="cosmositio anasayfa"
+          aria-label="cosmositio"
         >
           <Image
             src="/logo.png"
@@ -29,26 +34,44 @@ export default function Header() {
               href="/"
               className="px-3.5 py-2 rounded-full text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition"
             >
-              Ana Sayfa
+              {m.nav_home}
             </Link>
             <Link
-              href="/blog"
+              href={blogHref}
               className="px-3.5 py-2 rounded-full text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition"
             >
-              Blog
+              {m.nav_blog}
             </Link>
             <Link
               href="/hakkimizda"
               className="px-3.5 py-2 rounded-full text-stone-700 hover:bg-stone-100 hover:text-stone-900 transition"
             >
-              Hakkımızda
+              {m.nav_about}
             </Link>
             <Link
               href="/iletisim"
               className="ml-1 px-4 py-2 rounded-full text-pink-700 hover:bg-pink-50 transition"
             >
-              İletişim
+              {m.nav_contact}
             </Link>
+
+            {/* Dil değiştirme (cross-domain link) */}
+            <span className="ml-3 hidden md:inline text-stone-300">|</span>
+            {locale === "tr" ? (
+              <a
+                href="https://laden.cosmositio.com"
+                className="hidden md:inline px-3 py-2 text-xs font-bold uppercase text-stone-500 hover:text-rose-700 tracking-wider"
+              >
+                🇩🇪 DE
+              </a>
+            ) : (
+              <a
+                href="https://shop.cosmositio.com"
+                className="hidden md:inline px-3 py-2 text-xs font-bold uppercase text-stone-500 hover:text-rose-700 tracking-wider"
+              >
+                🇹🇷 TR
+              </a>
+            )}
           </nav>
         </div>
       </div>

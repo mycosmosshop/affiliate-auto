@@ -16,10 +16,20 @@ interface Item {
 export default function RelatedCarousel({
   items,
   categoryEmoji,
+  locale = "tr",
 }: {
   items: Item[];
   categoryEmoji: string;
+  locale?: "tr" | "de";
 }) {
+  const reviewLabel = locale === "de" ? "Details →" : "İncele →";
+  const catLabels: Record<string, { tr: string; de: string }> = {
+    Teknoloji: { tr: "Teknoloji", de: "Technologie" },
+    Mutfak: { tr: "Mutfak", de: "Küche" },
+    Güzellik: { tr: "Güzellik", de: "Beauty" },
+    "Spor & Sağlık": { tr: "Spor & Sağlık", de: "Sport & Gesundheit" },
+    "Anne & Bebek": { tr: "Anne & Bebek", de: "Mama & Baby" },
+  };
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [canLeft, setCanLeft] = useState(false);
   const [canRight, setCanRight] = useState(true);
@@ -94,14 +104,18 @@ export default function RelatedCarousel({
               <ProductImage src={r.imageUrl} alt={r.title} emoji={categoryEmoji} />
             </div>
             <p className="text-xs text-pink-700 font-semibold mb-1">
-              {categoryEmoji} {r.category}
+              {categoryEmoji}{" "}
+              {(catLabels[r.category] && catLabels[r.category][locale]) ||
+                r.category}
             </p>
             <h3 className="text-sm font-semibold text-stone-900 line-clamp-2 leading-snug mb-2">
               {r.title}
             </h3>
-            <p className="text-stone-900 font-bold">{r.price}</p>
+            {locale === "tr" && (
+              <p className="text-stone-900 font-bold">{r.price}</p>
+            )}
             <p className="text-xs text-pink-700 mt-2 group-hover:underline">
-              İncele →
+              {reviewLabel}
             </p>
           </Link>
         ))}

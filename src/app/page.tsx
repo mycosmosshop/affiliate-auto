@@ -2,6 +2,8 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import ProductImage from "@/components/ProductImage";
+import { getLocale, t, localizeCategory } from "@/lib/i18n";
+import { buildAffiliateUrl, shortenAmazonUrl } from "@/lib/affiliate";
 
 interface TrProduct {
   asin: string;
@@ -27,35 +29,46 @@ function loadProducts(): TrProduct[] {
 
 const CATEGORY_INFO: Record<
   string,
-  { emoji: string; subtitle: string; tone: string; accent: string }
+  {
+    emoji: string;
+    subtitle_tr: string;
+    subtitle_de: string;
+    tone: string;
+    accent: string;
+  }
 > = {
   Teknoloji: {
     emoji: "🔌",
-    subtitle: "Akıllı ev, kulaklık, şarj — viral teknoloji",
+    subtitle_tr: "Akıllı ev, kulaklık, şarj — viral teknoloji",
+    subtitle_de: "Smart Home, Kopfhörer, Ladegeräte — virale Tech",
     tone: "from-slate-50 to-blue-50/30",
     accent: "text-blue-700",
   },
   Mutfak: {
     emoji: "🍳",
-    subtitle: "Air fryer, blender, akıllı pişirici",
+    subtitle_tr: "Air fryer, blender, akıllı pişirici",
+    subtitle_de: "Heißluftfritteuse, Mixer, smarte Küchengeräte",
     tone: "from-amber-50/40 to-orange-50/30",
     accent: "text-amber-700",
   },
   Güzellik: {
     emoji: "💄",
-    subtitle: "Cilt bakımı, makyaj — viral beauty",
+    subtitle_tr: "Cilt bakımı, makyaj — viral beauty",
+    subtitle_de: "Hautpflege, Make-up — virale Beauty",
     tone: "from-rose-50/40 to-pink-50/30",
     accent: "text-rose-700",
   },
   "Spor & Sağlık": {
     emoji: "💪",
-    subtitle: "Ev egzersizi, fitness — vücut bakımı",
+    subtitle_tr: "Ev egzersizi, fitness — vücut bakımı",
+    subtitle_de: "Heim-Workout, Fitness — Körperpflege",
     tone: "from-emerald-50/40 to-teal-50/30",
     accent: "text-emerald-700",
   },
   "Anne & Bebek": {
     emoji: "👶",
-    subtitle: "Bebek bakım, anne hayatını kolaylaştıranlar",
+    subtitle_tr: "Bebek bakım, anne hayatını kolaylaştıranlar",
+    subtitle_de: "Babypflege, Lebensretter für Mamas",
     tone: "from-violet-50/40 to-purple-50/30",
     accent: "text-violet-700",
   },
@@ -72,18 +85,9 @@ function slugify(s: string): string {
     .trim();
 }
 
-// Amazon affiliate URL'ini kısa görsel form (host + dp/ASIN)
-function shortenAmazonUrl(url: string): string {
-  try {
-    const m = url.match(/amazon\.com\.tr\/dp\/([A-Z0-9]{10})/);
-    if (m) return `amazon.com.tr/dp/${m[1]}`;
-    return url.replace(/^https?:\/\//, "").substring(0, 40);
-  } catch {
-    return url;
-  }
-}
-
-export default function Home() {
+export default async function Home() {
+  const locale = await getLocale();
+  const m = t(locale);
   const products = loadProducts();
   const grouped = products.reduce<Record<string, TrProduct[]>>((acc, p) => {
     (acc[p.category] = acc[p.category] || []).push(p);
@@ -109,21 +113,19 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
             </span>
-            <span>Bu hafta güncellendi</span>
+            <span>{m.hero_badge}</span>
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-stone-900 max-w-3xl mx-auto">
-            Türkiye&apos;nin{" "}
+            {m.hero_title_part1}{" "}
             <span className="font-display-italic bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 bg-clip-text text-transparent">
-              trend ürün
+              {m.hero_title_highlight}
             </span>{" "}
-            rehberi.
+            {m.hero_title_part2}
           </h1>
 
           <p className="mt-6 text-base md:text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
-            Amazon.com.tr&apos;deki binlerce ürünü inceliyor, kullanıcı
-            yorumlarıyla öne çıkanları her hafta sizin için tek bir
-            sayfada topluyoruz.
+            {m.hero_sub(products.length)}
           </p>
 
           {/* CTA row */}
@@ -132,13 +134,13 @@ export default function Home() {
               href={`#${slugify(categories[0] || "")}`}
               className="bg-stone-900 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-full transition shadow-md text-sm"
             >
-              Trend ürünleri gör ↓
+              {m.cta_browse}
             </a>
             <a
-              href="/blog"
+              href={locale === "de" ? "/blog/de" : "/blog"}
               className="bg-white border border-stone-300 hover:border-stone-900 text-stone-900 font-semibold px-6 py-3 rounded-full transition text-sm"
             >
-              Satın alma rehberlerini oku
+              {m.cta_guides}
             </a>
           </div>
 
@@ -153,7 +155,7 @@ export default function Home() {
                   className="group bg-white border border-stone-200 rounded-full px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-900 hover:text-white hover:border-stone-900 transition"
                 >
                   <span className="mr-1">{info?.emoji ?? "📦"}</span>
-                  {c}
+                  {localizeCategory(c, locale)}
                 </a>
               );
             })}
@@ -166,7 +168,7 @@ export default function Home() {
                 {products.length}+
               </div>
               <div className="text-xs uppercase tracking-wider font-medium text-stone-500 mt-2">
-                İncelenmiş Ürün
+                {m.stats_products}
               </div>
             </div>
             <div className="border-x border-stone-200/60">
@@ -174,7 +176,7 @@ export default function Home() {
                 {categories.length}
               </div>
               <div className="text-xs uppercase tracking-wider font-medium text-stone-500 mt-2">
-                Kategori
+                {m.stats_categories}
               </div>
             </div>
             <div>
@@ -182,7 +184,7 @@ export default function Home() {
                 7/24
               </div>
               <div className="text-xs uppercase tracking-wider font-medium text-stone-500 mt-2">
-                Güncel
+                {m.stats_realtime}
               </div>
             </div>
           </div>
@@ -194,10 +196,12 @@ export default function Home() {
         const items = grouped[cat];
         const info = CATEGORY_INFO[cat] || {
           emoji: "📦",
-          subtitle: "Trend ürünler",
+          subtitle_tr: "Trend ürünler",
+          subtitle_de: "Trend-Produkte",
           tone: "from-stone-50 to-stone-100",
           accent: "text-stone-700",
         };
+        const subtitle = locale === "de" ? info.subtitle_de : info.subtitle_tr;
         return (
           <section
             key={cat}
@@ -208,20 +212,21 @@ export default function Home() {
               <header className="mb-12 flex items-end justify-between flex-wrap gap-4 border-b border-stone-200 pb-6">
                 <div>
                   <p className={`text-xs uppercase tracking-widest font-semibold ${info.accent} mb-2`}>
-                    {info.emoji} {cat}
+                    {info.emoji} {localizeCategory(cat, locale)}
                   </p>
                   <h2 className="font-display text-3xl md:text-4xl font-bold text-stone-900 leading-tight max-w-2xl">
-                    {info.subtitle}
+                    {subtitle}
                   </h2>
                 </div>
                 <p className="text-sm text-stone-500 font-medium">
-                  {items.length} ürün incelemesi
+                  {m.cat_products_count(items.length)}
                 </p>
               </header>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {items.map((p) => {
-                  const shortUrl = shortenAmazonUrl(p.affiliateUrl);
+                  const affUrl = buildAffiliateUrl(locale, p.affiliateUrl, p.title);
+                  const shortUrl = shortenAmazonUrl(affUrl);
                   return (
                     <article
                       key={p.asin}
@@ -268,18 +273,18 @@ export default function Home() {
                             href={`/urun/${p.asin}`}
                             className="text-xs font-semibold text-pink-700 hover:underline"
                           >
-                            İncele →
+                            {m.card_review}
                           </Link>
                         </div>
 
                         {/* Amazon link — açık ve görünür */}
                         <a
-                          href={p.affiliateUrl}
+                          href={affUrl}
                           target="_blank"
                           rel="noopener noreferrer sponsored"
                           className="block border-t border-stone-100 pt-3 text-xs"
                         >
-                          <span className="text-stone-500">Amazon&apos;da gör:</span>
+                          <span className="text-stone-500">{m.card_amazon_link}</span>
                           <br />
                           <span className="font-mono text-amber-700 hover:text-amber-900 break-all transition">
                             {shortUrl} →
@@ -299,36 +304,49 @@ export default function Home() {
       <section className="bg-stone-900 text-stone-300 py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <p className="text-pink-300 text-xs uppercase tracking-widest font-semibold mb-4">
-            Şeffaflık
+            {locale === "de" ? "Transparenz" : "Şeffaflık"}
           </p>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-5 leading-tight">
-            Dürüst öneriler, gerçek seçkiler
+            {locale === "de"
+              ? "Ehrliche Empfehlungen, echte Auswahl"
+              : "Dürüst öneriler, gerçek seçkiler"}
           </h2>
           <p className="leading-relaxed text-stone-400">
-            Cosmositio, Amazon.com.tr&apos;de viral olan, gerçek
-            kullanıcı yorumlarıyla öne çıkan ürünleri özenle inceler ve
-            <strong className="text-white"> dürüstçe</strong> önerir.
-            Beğenmediğimiz bir ürünü, anlaşma ya da indirim karşılığında
-            <em> asla</em> listelemiyoruz.
+            {locale === "de" ? (
+              <>
+                Cosmositio prüft Produkte auf Amazon Deutschland, die von
+                echten Nutzerbewertungen hervorgehoben werden, und empfiehlt sie
+                <strong className="text-white"> ehrlich</strong>. Wir listen
+                <em> niemals</em> Produkte gegen Zahlung oder Rabatte.
+              </>
+            ) : (
+              <>
+                Cosmositio, Amazon Deutschland&apos;da viral olan, gerçek
+                kullanıcı yorumlarıyla öne çıkan ürünleri özenle inceler ve
+                <strong className="text-white"> dürüstçe</strong> önerir.
+                Beğenmediğimiz bir ürünü, anlaşma ya da indirim karşılığında
+                <em> asla</em> listelemiyoruz.
+              </>
+            )}
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
             <Link
               href="/hakkimizda"
               className="bg-white text-stone-900 font-semibold px-5 py-2.5 rounded-full hover:bg-stone-100 transition"
             >
-              Hakkımızda
+              {m.nav_about}
             </Link>
             <Link
-              href="/blog"
+              href={locale === "de" ? "/blog/de" : "/blog"}
               className="border border-stone-700 text-white font-semibold px-5 py-2.5 rounded-full hover:bg-stone-800 transition"
             >
-              Blog Yazıları
+              {m.nav_blog}
             </Link>
             <Link
               href="/iletisim"
               className="border border-stone-700 text-white font-semibold px-5 py-2.5 rounded-full hover:bg-stone-800 transition"
             >
-              İletişim
+              {m.nav_contact}
             </Link>
           </div>
         </div>

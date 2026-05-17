@@ -8,6 +8,8 @@ import RelatedCarousel from "@/components/RelatedCarousel";
 import Reviews from "@/components/Reviews";
 import ViewTracker from "@/components/ViewTracker";
 import { getViews, getComments } from "@/lib/product-meta";
+import { getLocale, t, localizeCategory } from "@/lib/i18n";
+import { buildAffiliateUrl } from "@/lib/affiliate";
 
 interface TrProduct {
   asin: string;
@@ -66,8 +68,11 @@ export default async function UrunReview({
     .filter((p) => p.category === product.category && p.asin !== asin)
     .slice(0, 12);
 
-  // Pros & cons (kategori-bazlı template)
-  const featuresByCategory: Record<string, { pros: string[]; cons: string[] }> = {
+  const locale = await getLocale();
+  const m = t(locale);
+
+  // Pros & cons (kategori-bazlı template) — locale aware
+  const featuresByCategoryTr: Record<string, { pros: string[]; cons: string[] }> = {
     Teknoloji: {
       pros: [
         "Güvenilir marka kalitesi",
@@ -114,7 +119,57 @@ export default async function UrunReview({
       cons: ["Yenidoğan için boy ayarı önerilir", "İlk yıkamada renk değişebilir"],
     },
   };
-  const features = featuresByCategory[product.category] || featuresByCategory.Teknoloji;
+  const featuresByCategoryDe: Record<string, { pros: string[]; cons: string[] }> = {
+    Teknoloji: {
+      pros: [
+        "Zuverlässige Markenqualität",
+        "Schneller Versand (Amazon Prime kompatibel)",
+        "Deutscher Support + 2 Jahre Garantie",
+        "Über 85% positive Nutzerbewertungen",
+      ],
+      cons: ["Einige Modelle eventuell ausverkauft", "Farben können auf dem Display abweichen"],
+    },
+    Mutfak: {
+      pros: [
+        "Spülmaschinengeeignete Teile",
+        "Deutsche Bedienungsanleitung",
+        "Energieklasse A+ (sofern angegeben)",
+        "Einfache Ersatzteilbeschaffung",
+      ],
+      cons: ["Stellfläche planen", "Bei erster Nutzung kann es leicht riechen"],
+    },
+    Güzellik: {
+      pros: [
+        "Dermatologisch getestete Formel",
+        "Cruelty-free + parabenfreie Optionen",
+        "Geeignet für empfindliche Haut",
+        "Originalprodukt-Garantie",
+      ],
+      cons: ["Bei empfindlicher Haut Patch-Test empfohlen", "Wirkung in 2-4 Wochen sichtbar"],
+    },
+    "Spor & Sağlık": {
+      pros: [
+        "Für Profis und Amateure geeignet",
+        "Rutschfestes, atmungsaktives Material",
+        "Einfach zu transportieren und zu verstauen",
+        "Trainer-empfohlene Modelle",
+      ],
+      cons: ["Erste Woche Eingewöhnung", "Größentabelle prüfen"],
+    },
+    "Anne & Bebek": {
+      pros: [
+        "Pädiatrisch geprüftes Material",
+        "BPA-frei, hypoallergen",
+        "Spülmaschinen- und Sterilisator-fest",
+        "Europäische CE-Sicherheitszertifizierung",
+      ],
+      cons: ["Für Neugeborene Größeneinstellung empfohlen", "Bei erster Wäsche kann Farbe verändern"],
+    },
+  };
+  const featuresByCategory =
+    locale === "de" ? featuresByCategoryDe : featuresByCategoryTr;
+  const features =
+    featuresByCategory[product.category] || featuresByCategory.Teknoloji;
 
   // Kategori-bazlı emoji (her üründe doğru emoji görünsün — productEmojis rotation yanıltıcıydı)
   const categoryEmoji: Record<string, string> = {
@@ -130,17 +185,21 @@ export default async function UrunReview({
   const initialViews = await getViews(product.asin);
   const initialComments = await getComments(product.asin);
 
+  // Affiliate URL — locale'e göre amazon.de veya .com.tr
+  const affUrl = buildAffiliateUrl(locale, product.affiliateUrl, product.title);
+  const amazonHost = locale === "de" ? "amazon.de" : "amazon.com.tr";
+
   return (
     <article className="bg-stone-50">
       {/* Breadcrumb */}
       <div className="max-w-5xl mx-auto px-6 pt-8 text-sm text-stone-500">
         <Link href="/" className="hover:text-pink-700">
-          Ana Sayfa
+          {m.detail_breadcrumb_home}
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-stone-700">{product.category}</span>
+        <span className="text-stone-700">{localizeCategory(product.category, locale)}</span>
         <span className="mx-2">/</span>
-        <span className="text-stone-900 font-medium">İnceleme</span>
+        <span className="text-stone-900 font-medium">{m.detail_breadcrumb_review}</span>
       </div>
 
       {/* Header */}
@@ -153,7 +212,7 @@ export default async function UrunReview({
         {/* Info */}
         <div className="flex flex-col justify-center">
           <p className="text-xs uppercase tracking-widest text-pink-700 font-semibold mb-2">
-            {catEmoji} {product.category}
+            {catEmoji} {localizeCategory(product.category, locale)}
           </p>
           <h1 className="font-display text-3xl md:text-4xl font-bold text-stone-900 leading-tight mb-4">
             {product.title}
@@ -164,27 +223,27 @@ export default async function UrunReview({
                 ⭐ {product.rating}/5
               </span>
             )}
-            <ViewTracker asin={product.asin} initial={initialViews} />
-            <span className="text-stone-600">Amazon.com.tr</span>
+            <ViewTracker asin={product.asin} initial={initialViews} locale={locale} />
+            <span className="text-stone-600">{amazonHost}</span>
           </div>
 
           <div className="border border-stone-200 rounded-2xl p-5 bg-white shadow-sm mb-6">
             <p className="text-xs uppercase tracking-wider text-stone-500 font-semibold">
-              Güncel Fiyat
+              {m.detail_current_price}
             </p>
             <p className="font-display text-4xl font-bold text-stone-900 mt-1">
-              {product.price}
+              {locale === "de" ? "—" : product.price}
             </p>
             <a
-              href={product.affiliateUrl}
+              href={affUrl}
               target="_blank"
               rel="noopener noreferrer sponsored"
               className="mt-4 block bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-center py-3 rounded-xl transition shadow-md hover:shadow-lg"
             >
-              Amazon&apos;da Gör →
+              {m.detail_amazon_cta}
             </a>
             <p className="text-xs text-stone-500 mt-3 text-center font-mono break-all">
-              {product.affiliateUrl}
+              {affUrl}
             </p>
           </div>
 
@@ -197,26 +256,46 @@ export default async function UrunReview({
       {/* Detaylı inceleme */}
       <section className="max-w-3xl mx-auto px-6 py-12 bg-white rounded-3xl border border-stone-200 shadow-sm">
         <h2 className="font-display text-3xl font-bold text-stone-900 mb-6">
-          Ürün İncelemesi
+          {m.detail_review_title}
         </h2>
         <div className="prose prose-stone max-w-none text-stone-700 leading-relaxed space-y-4">
-          <p className="text-lg">
-            <strong>{product.title}</strong>, Amazon.com.tr&apos;de{" "}
-            <strong>{product.category}</strong> kategorisinde dikkat çeken ürünlerden biri.
-            Kullanıcı yorumlarına ve teknik özelliklerine baktığımızda, bu fiyat
-            segmentinde tercih edilebilir bir seçenek olarak öne çıkıyor.
-          </p>
-          <p>
-            Bu inceleme, Amazon&apos;daki gerçek kullanıcı yorumlarına ve ürün
-            teknik özelliklerine dayanmaktadır. Cosmositio olarak hiçbir ürünü
-            denemeden önermiyoruz — ancak Amazon Türkiye&apos;deki binlerce
-            doğrulanmış müşteri yorumunu analiz ederek size en güvenilir özetleri
-            sunuyoruz.
-          </p>
+          {locale === "de" ? (
+            <>
+              <p className="text-lg">
+                <strong>{product.title}</strong> ist eines der bemerkenswerten
+                Produkte in der Kategorie{" "}
+                <strong>{localizeCategory(product.category, locale)}</strong>{" "}
+                auf Amazon Deutschland. Basierend auf Nutzerbewertungen und
+                technischen Spezifikationen ist es in seiner Preisklasse eine
+                überzeugende Wahl.
+              </p>
+              <p>
+                Dieser Test basiert auf echten Nutzerbewertungen und
+                Produktspezifikationen. Wir empfehlen bei Cosmositio kein
+                Produkt ungeprüft — wir analysieren tausende verifizierte
+                Kundenbewertungen und fassen das Wesentliche für dich zusammen.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-lg">
+                <strong>{product.title}</strong>, {amazonHost}&apos;de{" "}
+                <strong>{localizeCategory(product.category, locale)}</strong> kategorisinde
+                dikkat çeken ürünlerden biri. Kullanıcı yorumlarına ve teknik
+                özelliklerine baktığımızda, bu fiyat segmentinde tercih
+                edilebilir bir seçenek olarak öne çıkıyor.
+              </p>
+              <p>
+                Bu inceleme, Amazon&apos;daki gerçek kullanıcı yorumlarına ve
+                ürün teknik özelliklerine dayanmaktadır. Cosmositio olarak
+                hiçbir ürünü denemeden önermiyoruz.
+              </p>
+            </>
+          )}
         </div>
 
         <h3 className="font-display text-xl font-bold text-stone-900 mt-10 mb-4">
-          ✅ Artıları
+          {m.detail_pros}
         </h3>
         <ul className="space-y-2 text-stone-700">
           {features.pros.map((pro, i) => (
@@ -228,7 +307,7 @@ export default async function UrunReview({
         </ul>
 
         <h3 className="font-display text-xl font-bold text-stone-900 mt-8 mb-4">
-          ⚠️ Dikkat Edilecekler
+          {m.detail_cons}
         </h3>
         <ul className="space-y-2 text-stone-700">
           {features.cons.map((con, i) => (
@@ -240,53 +319,53 @@ export default async function UrunReview({
         </ul>
 
         <h3 className="font-display text-xl font-bold text-stone-900 mt-10 mb-4">
-          Kimler için uygun?
+          {m.detail_who_for}
         </h3>
-        <p className="text-stone-700 leading-relaxed">
-          Bu ürün, kalite/fiyat oranı arayan, dürüst kullanıcı yorumlarına önem
-          veren ve Amazon&apos;un hızlı kargo + iade güvencesinden faydalanmak
-          isteyen Türk müşteriler için ideal bir seçimdir.
-        </p>
+        <p className="text-stone-700 leading-relaxed">{m.detail_who_for_text}</p>
 
         {/* Big CTA */}
         <div className="mt-10 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 text-center">
-          <p className="text-sm text-stone-600 mb-3">Güncel fiyat ve stok için:</p>
+          <p className="text-sm text-stone-600 mb-3">{m.detail_buy_cta}</p>
           <a
-            href={product.affiliateUrl}
+            href={affUrl}
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold px-8 py-4 rounded-xl transition shadow-md hover:shadow-lg text-lg"
           >
-            Amazon.com.tr&apos;de Görüntüle →
+            {m.detail_view_on}
           </a>
           <p className="text-xs text-stone-500 mt-3 font-mono break-all">
-            {product.affiliateUrl}
+            {affUrl}
           </p>
         </div>
 
         {/* Affiliate disclosure */}
         <div className="mt-10 bg-stone-50 border-l-4 border-pink-300 rounded-r-xl p-5 text-sm text-stone-600 leading-relaxed">
           <p>
-            <strong>Şeffaflık:</strong> Yukarıdaki bağlantı, ürünü
-            Amazon.com.tr üzerinde görüntülemenizi sağlar. Bu bağlantıyı
-            kullanmanız sizin için <strong>herhangi bir ek maliyet
-            oluşturmaz</strong>. Ürün önerilerimiz, kullanıcı yorumları ve
-            içerik analizine dayanır; hiçbir markayla ücretli iş birliğimiz
-            bulunmamaktadır.
+            <strong>{m.detail_transparency_title}</strong>{" "}
+            {m.detail_transparency_text}
           </p>
         </div>
       </section>
 
       {/* Yorumlar — gerçek, sıfırdan başlar */}
-      <Reviews asin={product.asin} initialComments={initialComments} />
+      <Reviews
+        asin={product.asin}
+        initialComments={initialComments}
+        locale={locale}
+      />
 
       {/* İlgili ürünler — oklarla kaydırılabilir carousel */}
       {related.length > 0 && (
         <section className="max-w-6xl mx-auto px-6 py-16">
           <h2 className="font-display text-2xl font-bold text-stone-900 mb-6">
-            {product.category} kategorisinden diğer öneriler
+            {m.detail_related_title(localizeCategory(product.category, locale))}
           </h2>
-          <RelatedCarousel items={related} categoryEmoji={catEmoji} />
+          <RelatedCarousel
+            items={related}
+            categoryEmoji={catEmoji}
+            locale={locale}
+          />
         </section>
       )}
     </article>
