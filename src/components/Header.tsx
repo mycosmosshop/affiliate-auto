@@ -24,15 +24,6 @@ export default function Header() {
         </Link>
 
         <div className="flex items-center gap-3">
-          {/* Trend tag — küçük canlı sinyal */}
-          <span className="hidden lg:inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-50 to-amber-50 border border-rose-200/60 px-3 py-1.5 rounded-full text-xs font-semibold text-rose-700">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-600" />
-            </span>
-            Bugün trend
-          </span>
-
           <nav className="flex items-center gap-0.5 text-sm font-semibold">
             <Link
               href="/"
