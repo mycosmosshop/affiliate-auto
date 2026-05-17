@@ -113,17 +113,17 @@ export default function Home() {
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-stone-900 max-w-3xl mx-auto">
-            Amazon&apos;da{" "}
+            Türkiye&apos;nin{" "}
             <span className="font-display-italic bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 bg-clip-text text-transparent">
-              binlerce ürün
+              trend ürün
             </span>{" "}
-            arasından, sadece <span className="underline decoration-pink-500 decoration-4 underline-offset-4">denenmiş olanlar</span>.
+            rehberi.
           </h1>
 
           <p className="mt-6 text-base md:text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
-            Bu hafta {products.length} ürünü inceledik, en iyilerini buraya
-            ayıkladık. Bıçak, tıraş, alkol — yok. Sadece günlük hayatı
-            kolaylaştıran şeyler.
+            Amazon.com.tr&apos;deki binlerce ürünü inceliyor, kullanıcı
+            yorumlarıyla öne çıkanları her hafta sizin için tek bir
+            sayfada topluyoruz.
           </p>
 
           {/* CTA row */}
