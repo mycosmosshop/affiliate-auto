@@ -268,11 +268,11 @@ export default async function UrunReview({
         <div className="mt-10 bg-stone-50 border-l-4 border-pink-300 rounded-r-xl p-5 text-sm text-stone-600 leading-relaxed">
           <p>
             <strong>Şeffaflık Bildirimi:</strong> Cosmositio, Amazon.com.tr
-            Partnernet ortaklık programının bir üyesidir. Yukarıdaki bağlantı
-            üzerinden satın alım gerçekleştirirseniz, Amazon&apos;dan küçük bir
-            komisyon kazanırız. <strong>Sizin için ek bir maliyet oluşturmaz</strong>.
-            Bu komisyon, ürün önerilerimizi <em>asla</em> etkilemez — sadece
-            bağımsız beauty/tech/lifestyle önerilerimizi sürdürmemize destek olur.
+            Partnernet ortaklık programına başvuru aşamasındadır. Onay
+            sonrası, yukarıdaki bağlantı üzerinden satın alım yapmanız
+            halinde Amazon&apos;dan küçük bir komisyon kazanmaya başlayacağız.
+            <strong> Sizin için ek bir maliyet oluşturmaz</strong>. Ürün
+            önerilerimiz hiçbir koşulda komisyondan etkilenmez.
           </p>
         </div>
       </section>

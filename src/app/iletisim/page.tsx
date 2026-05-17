@@ -108,7 +108,8 @@ export default function IletisimPage() {
       </div>
 
       <p className="text-center text-xs text-stone-500 mt-8">
-        Cosmositio, Amazon.com.tr Partnernet programının bir üyesidir.
+        Cosmositio, Amazon.com.tr Partnernet ortaklık programına başvuru
+        aşamasındadır.
         <br />
         © 2026 cosmositio
       </p>

@@ -19,7 +19,7 @@ export default function Header() {
             width={640}
             height={192}
             priority
-            className="h-28 md:h-32 w-auto mix-blend-multiply"
+            className="h-32 md:h-40 w-auto mix-blend-multiply"
           />
         </Link>
 

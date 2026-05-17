@@ -102,34 +102,48 @@ export default function Home() {
           <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] bg-violet-200/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="relative max-w-5xl mx-auto px-6 py-28 text-center">
+        <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-20 text-center">
           {/* Live tag */}
-          <div className="inline-flex items-center gap-2 bg-white border border-stone-200 px-4 py-1.5 rounded-full text-xs font-medium uppercase tracking-widest text-stone-700 mb-10 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-white border border-stone-200 px-4 py-1.5 rounded-full text-xs font-medium uppercase tracking-widest text-stone-700 mb-6 shadow-sm">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
             </span>
-            <span>Türkiye&apos;nin trend rehberi</span>
+            <span>Bu hafta güncellendi</span>
           </div>
 
-          <h1 className="font-display text-6xl sm:text-7xl md:text-[8rem] leading-[0.9] tracking-tight text-stone-900">
-            En çok tıklanan,
-            <br />
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-stone-900 max-w-3xl mx-auto">
+            Amazon&apos;da{" "}
             <span className="font-display-italic bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 bg-clip-text text-transparent">
-              en çok satılan
-            </span>
-            <br />
-            ürünler — tek yerde.
+              binlerce ürün
+            </span>{" "}
+            arasından, sadece <span className="underline decoration-pink-500 decoration-4 underline-offset-4">denenmiş olanlar</span>.
           </h1>
 
-          <p className="mt-10 text-lg md:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed font-light">
-            Amazon.com.tr&apos;de viral olan, Pinterest&apos;te trend olan
-            ürünleri inceleyip <span className="font-display-italic text-stone-900">dürüstçe</span>{" "}
-            öneriyoruz. Komisyon değil, kalite sıralaması.
+          <p className="mt-6 text-base md:text-lg text-stone-600 max-w-xl mx-auto leading-relaxed">
+            Bu hafta {products.length} ürünü inceledik, en iyilerini buraya
+            ayıkladık. Bıçak, tıraş, alkol — yok. Sadece günlük hayatı
+            kolaylaştıran şeyler.
           </p>
 
+          {/* CTA row */}
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a
+              href={`#${slugify(categories[0] || "")}`}
+              className="bg-stone-900 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-full transition shadow-md text-sm"
+            >
+              Trend ürünleri gör ↓
+            </a>
+            <a
+              href="/blog"
+              className="bg-white border border-stone-300 hover:border-stone-900 text-stone-900 font-semibold px-6 py-3 rounded-full transition text-sm"
+            >
+              Satın alma rehberlerini oku
+            </a>
+          </div>
+
           {/* Categories nav */}
-          <div className="mt-12 flex flex-wrap justify-center gap-2">
+          <div className="mt-10 flex flex-wrap justify-center gap-2">
             {categories.map((c) => {
               const info = CATEGORY_INFO[c];
               return (
@@ -146,7 +160,7 @@ export default function Home() {
           </div>
 
           {/* Stats — refined */}
-          <div className="mt-20 grid grid-cols-3 gap-8 max-w-2xl mx-auto border-t border-stone-200/60 pt-10">
+          <div className="mt-14 grid grid-cols-3 gap-8 max-w-2xl mx-auto border-t border-stone-200/60 pt-8">
             <div>
               <div className="font-display text-4xl font-bold text-stone-900">
                 {products.length}+

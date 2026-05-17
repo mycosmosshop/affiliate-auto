@@ -78,8 +78,8 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-stone-500">
           <p>© {year} cosmositio — Tüm hakları saklıdır.</p>
           <p>
-            Amazon.com.tr Partnernet programı üyesi olarak nitelikli alışverişlerden
-            komisyon kazanıyoruz.
+            Amazon.com.tr Partnernet ortaklık programına başvuru aşamasındayız.
+            Onay sonrası nitelikli alışverişlerden komisyon kazanmaya başlayacağız.
           </p>
         </div>
       </div>

@@ -40,11 +40,17 @@ export default function GizlilikPage() {
           </h2>
           <p>
             Cosmositio,{" "}
-            <strong>Amazon.com.tr Partnernet ortaklık programının</strong>{" "}
-            bir üyesidir. Site üzerindeki Amazon ürün bağlantılarına
-            tıklayıp satın alma yaparsanız, Amazon&apos;dan küçük bir
-            komisyon kazanırız. Bu, sizin için herhangi bir ek maliyet
-            oluşturmaz.
+            <strong>Amazon.com.tr Partnernet ortaklık programına başvuru
+            aşamasındadır</strong>. Başvurumuz onaylandıktan sonra, site
+            üzerindeki Amazon ürün bağlantılarına tıklayıp satın alma
+            yapmanız durumunda Amazon&apos;dan küçük bir komisyon kazanmaya
+            başlayacağız. Bu durum, sizin için herhangi bir ek maliyet
+            oluşturmayacaktır.
+          </p>
+          <p>
+            Şu anda site üzerindeki linkler yönlendirme amaçlıdır; aktif
+            bir affiliate ID tag&apos;i taşımamaktadır. Onay alındığında bu
+            sayfa güncellenecektir.
           </p>
           <p>
             Önerilerimiz, komisyon oranlarından bağımsızdır — sadece
